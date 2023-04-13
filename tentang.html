@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script>
         tailwind.config = {
           theme: {
@@ -29,6 +31,8 @@
     <title>Tentang</title>
 </head>
 <body>
+    <script>AOS.init()</script>
+
     <div class="font-inter">
     <header>
         <nav>
@@ -39,33 +43,34 @@
       <article>
         <section class="container mx-auto">
             <div class="container mx-auto">
-                <h3 class="text-4xl font-bold ml-6 pt-24 sm:pt-44 md:text-6xl sm:text-center">Inovasi Gudang Modern & Aman</h3>
-                <p class="sm:text-center text-lg text-gray-500 ml-6 pt-5 sm:text-xl sm:w-1/2 sm:mx-auto ">Kami akan memberikan pelayanan maksimal untuk menjaga kualitas
+                <h3 class="text-4xl font-bold ml-6 pt-24 sm:pt-44 md:text-6xl sm:text-center" data-aos="fade-up">Inovasi Gudang Modern & Aman</h3>
+                <p class="sm:text-center text-lg text-gray-500 ml-6 pt-5 sm:text-xl sm:w-1/2 sm:mx-auto " data-aos="fade-up">Kami akan memberikan pelayanan maksimal untuk menjaga kualitas
                     dan kuantitas produk Anda
                 </p>
             </div>
         </section>
       </article>
 
-      <article class="bg-back mt-12 sm:mt-28 pt-16 mb-20 pb-16">
+      <article class="bg-back mt-12 sm:mt-28 pt-16 mb-20 pb-16" data-aos="fade-up">
         <section class="container sm:flex sm:flex-wrap sm:justify-evenly sm:mx-auto">
             <img src="Image/tentang/image 2.png" alt="" class="mx-auto mb-10 sm:w-56 sm:h-10 w-44 h-8">
             <img src="Image/tentang/image 3.png" alt="" class="mx-auto mb-8 sm:w-24 sm:h-10 w-20 h-8">
-            <img src="Image/tentang/image 4.png" alt="" class="mx-auto mb-8 sm:w-16 sm:h-10 w-20 h-8">
-            <img src="image/tentang/image 5.png" alt="" class="mx-auto mb-8 sm:w-56 sm:h-10 w-44 h-8">
             <img src="Image/tentang/image 6.png" alt="" class="mx-auto mb-8 sm:w-56 sm:h-10 w-50 h-10">
+            <img src="Image/tentang/image 4.png" alt="" class="mx-auto mb-8 sm:w-16 sm:h-10 w-14 h-8">
+            <img src="image/tentang/image 5.png" alt="" class="mx-auto mb-8 sm:w-56 sm:h-8 w-44 h-6">
+            
         </section>
       </article>
 
       <article>
         <section class="container mx-auto ">
             <div class="px-6 sm:flex py-20">
-                <div>
+                <div data-aos="fade-up">
                     <img src="Image/tentang/laptop.png" alt="" class="w-96 mx-auto sm:w-640 ">
                 </div>
-                <div class="">
-                    <h3 class="pl-6 sm:pl-20 sm:pt-6 lg:pt-28 pt-12 font-inter text-4xl font-bold ">Sistem Manajemen Gudang</h3>
-                    <p class="pl-6 sm:pl-20 pt-4 sm:w-3/4 sm:text-left">Kami hadir untuk meningkatkan efisiensi operasional 
+                <div class="" >
+                    <h3 class="pl-6 sm:pl-20 sm:pt-6 lg:pt-28 pt-12 font-inter sm:text-4xl text-3xl font-bold" data-aos="fade-up">Sistem Manajemen Gudang</h3>
+                    <p class="pl-6 sm:pl-20 pt-4 sm:w-3/4 sm:text-left" data-aos="fade-up">Kami hadir untuk meningkatkan efisiensi operasional 
                     dan menyediakan pelacakan inventaris sehingga Anda mendapatkan
                     kendali penuh atas produk Anda</p>
                 </div>
@@ -78,42 +83,42 @@
       <article>
         <section class="container mx-auto pb-32">
             <div>
-                <h3 class="text-4xl font-bold text-center pb-16 pt-40 sm:pb-28 sm:pt-32">Fasilitas Gudang</h3>
-                <div class="container sm:flex sm:flex-wrap sm:justify-evenly sm:mx-auto sm:gap-10 ml-6 mr-6" >
+                <h3 class="text-4xl font-bold text-center pb-16 pt-40 sm:pb-28 sm:pt-32" data-aos="fade-up">Fasilitas Gudang</h3>
+                <div class="container sm:flex sm:flex-wrap sm:justify-evenly sm:mx-auto sm:gap-10 pl-10 pr-6" >
 
                     <div class="sm:w-2/5 flex py-5 sm:py-0">
-                        <img src="Image/tentang/fasil/key.png" alt="" class="sm:w-24 sm:h-24 w-20 h-20">
+                        <img src="Image/tentang/fasil/key.png" alt="" class="sm:w-24 sm:h-24 w-20 h-20" data-aos="fade-up">
                         <div class="px-6">
-                            <h3 class="font-bold text-lg">Aman & Transparan</h3>
-                            <p class="text-gray-500">Sistem manajemen gudang kami memudahkan untuk
+                            <h3 class="font-bold text-lg" data-aos="fade-up">Aman & Transparan</h3>
+                            <p class="text-gray-500" data-aos="fade-up">Sistem manajemen gudang kami memudahkan untuk
                             memonitor seluruh operasional produk Anda.
                             </p>
                         </div>    
                     </div>
                     <div class="sm:w-2/5 flex py-5 sm:py-0">
-                        <img src="Image/tentang/fasil/warehouse-bold.png" alt="" class="w-24 h-24">
+                        <img src="Image/tentang/fasil/warehouse-bold.png" alt="" class="sm:w-24 sm:h-24 w-20 h-20" data-aos="fade-up">
                         <div class="px-6">
-                            <h3 class="font-bold text-lg">Perawatan Sesuai</h3>
-                            <p class="text-gray-500">Perawatan setiap produk Anda akan dilakukan 
+                            <h3 class="font-bold text-lg" data-aos="fade-up">Perawatan Sesuai</h3>
+                            <p class="text-gray-500" data-aos="fade-up">Perawatan setiap produk Anda akan dilakukan 
                             sesuai dengan jenis & kebutuhannya.
                             </p>
                         </div>
                         
                     </div>
                     <div class="sm:w-2/5 flex py-5 sm:py-0">
-                        <img src="Image/tentang/fasil/suhu.png" alt="" class="w-24 h-24">
+                        <img src="Image/tentang/fasil/suhu.png" alt="" class="sm:w-24 sm:h-24 w-20 h-20" data-aos="fade-up">
                         <div class="px-6">
-                            <h3 class="font-bold text-lg">Suhu Gudang Terkontrol</h3>
-                             <p class="text-gray-500">Perawatan setiap produk Anda akan dilakukan 
+                            <h3 class="font-bold text-lg" data-aos="fade-up">Suhu Gudang Terkontrol</h3>
+                             <p class="text-gray-500" data-aos="fade-up">Perawatan setiap produk Anda akan dilakukan 
                             sesuai dengan jenis & kebutuhannya.
                             </p>
                         </div>   
                     </div>
                     <div class="sm:w-2/5 flex py-5 sm:py-0">
-                        <img src="Image/tentang/fasil/telephone.png" alt="" class="w-24 h-24">
+                        <img src="Image/tentang/fasil/telephone.png" alt="" class="sm:w-24 sm:h-24 w-20 h-20" data-aos="fade-up">
                         <div class="px-6">
-                            <h3 class="font-bold text-lg">Layanan Pelanggan 24/7</h3>
-                             <p class="text-gray-500">Tim dukungan kami siap melayani Anda setiap hari.
+                            <h3 class="font-bold text-lg" data-aos="fade-up">Layanan Pelanggan 24/7</h3>
+                             <p class="text-gray-500" data-aos="fade-up">Tim dukungan kami siap melayani Anda setiap hari.
                             </p>
                         </div>   
                     </div>

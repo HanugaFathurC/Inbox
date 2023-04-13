@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <script>
       tailwind.config = {
         theme: {
@@ -18,6 +21,9 @@
             ,colors: {
               'back': '#F9FAFB',
             }
+            ,width:{
+              '343' : '21rem'
+            }
             
           }
         }
@@ -26,6 +32,8 @@
     <title>Landing Page</title>
 </head>
 <body>
+  <script>AOS.init()</script>
+  
     <header>
         <nav>
   
@@ -37,26 +45,27 @@
       <article>
         <section class="w-full bg-no-repeat bg-cover" style="background-image: url(image/landingpage.png);">
           <div class="lg:ml-24 ">
-            <h1 class="text-4xl font-bold ml-6 pt-36 sm:pt-72 text-white md:text-6xl ">DAPATKAN PELAYANAN</h1>
-            <h1 class="text-4xl font-bold ml-6 text-white sm:text-6xl"> TERBAIK DARI INBOX</h1>
-            <p class="text-lg text-white ml-6 pt-5 sm:text-xl">INBOX akan membantu Anda dalam menyediakan jasa sewa</p>
-            <p class="text-lg text-white ml-6 pb-6 sm:text-xl ">gudang yang aman, terpercaya, dan terjangkau.</p>
-            <button type="button" class="px-28 py-3 sm:px-4 bg-orange-500 rounded-lg text-white ml-6 mb-36 mt-2">MULAI SEKARANG</button>
+            <h1 class="text-4xl font-bold ml-6 pt-36 sm:pt-72 text-white md:text-6xl" data-aos="fade-up">DAPATKAN PELAYANAN</h1>
+            <h1 class="text-4xl font-bold ml-6 text-white sm:text-6xl" data-aos="fade-up"> TERBAIK DARI INBOX</h1>
+            <p class="text-lg text-white ml-6 pt-5 sm:text-xl" data-aos="fade-up">INBOX akan membantu Anda dalam menyediakan jasa sewa</p>
+            <p class="text-lg text-white ml-6 pb-6 sm:text-xl" data-aos="fade-up">gudang yang aman, terpercaya, dan terjangkau.</p>
+            <button type="button" class="w-80 sm:w-48 py-3 sm:px-4 bg-orange-500 rounded-lg text-white mx-auto mb-36 ml-6 justify-center"
+            data-aos="fade-up">MULAI SEKARANG</button>
         </div>
         </section>
       </article>
 
       <article>
         <section class="container mt-40 mb-20 text-center mx-auto ">
-            <h3 class="text-4xl font-bold">Top Gudang Penyimpanan</h3>
-            <p class="text-base text-gray-500 pt-3 mx-10 sm:text-xl">Kami menyediakan beberapa kategori gudang yang akan membantu Anda</p>
-            <p class="text-base text-gray-500 pt-1 mx-6 sm:text-xl">dalam menyimpan produk dengan aman dan mudah.</p>
+            <h3 class="text-4xl font-bold" data-aos="fade-up">Top Gudang Penyimpanan</h3>
+            <p class="text-base text-gray-500 pt-3 mx-10 sm:text-xl" data-aos="fade-up">Kami menyediakan beberapa kategori gudang yang akan membantu Anda</p>
+            <p class="text-base text-gray-500 pt-1 mx-6 sm:text-xl" data-aos="fade-up">dalam menyimpan produk dengan aman dan mudah.</p>
 
-             <div class="container mt-20 mx-auto px-6 sm:mt-20 sm:flex sm:flex-wrap sm:gap-6 sm:justify-evenly">
-              <div class="container mt-6 mx-auto w-80 sm:w-96 font-inter rounded-md shadow-md mb-4 bg-white 
-              ">
+             <div class="container mt-20 mx-auto px-6 sm:mt-20 sm:flex sm:flex-wrap sm:gap-6 sm:justify-evenly" >
+              <div class="container mt-6 mx-auto w-80 sm:w-96 font-inter rounded-md shadow-md mb-4 bg-white
+              " data-aos="fade-up">
                 <div class="w-72 mx-auto rounded-lg pt-6 sm:w-80">
-                <img src="Image/g.elektronik.png" alt="" class="w-full">
+                <img src="Image/g.elektronik.png" alt="" class="w-full rounded-sm">
               
               <div>
                 <p class="font-semibold pt-4 pb-6 text-left">Gudang Elektronik</p>
@@ -65,9 +74,9 @@
               </div>
 
               <div class="container mt-6 mx-auto w-80 sm:w-96 font-inter rounded-md shadow-md mb-4 bg-white 
-              ">
+              " data-aos="fade-up">
                 <div class="w-72 mx-auto rounded-lg pt-6 sm:w-80">
-                <img src="Image/g.f&b.png" alt="" class="w-full">
+                <img src="Image/g.f&b.png" alt="" class="w-full rounded-sm">
               
               <div>
                 <p class="font-semibold pt-4 pb-6 text-left">Gudang F&B</p>
@@ -76,9 +85,9 @@
               </div>
 
               <div class="container mt-6 mx-auto w-80 sm:w-96 font-inter rounded-md shadow-md mb-4 bg-white 
-              ">
+              " data-aos="fade-up">
                 <div class="w-72 mx-auto rounded-lg pt-6 sm:w-80">
-                <img src="Image/g.pakaian.png" alt="" class="w-full">
+                <img src="Image/g.pakaian.png" alt="" class="w-full rounded-sm">
               
               <div>
                 <p class="font-semibold pt-4 pb-6 text-left">Gudang Pakaian</p>
@@ -99,21 +108,21 @@
         <section class="bg-back mt-40 mb-40">
           <div class="container mx-auto">
             <div class="">
-            <h3 class="pt-28 font-inter text-4xl font-bold text-center">Kenapa INBOX?</h3>
-            <p class="text-base text-gray-500 pt-3 mx-10 sm:text-xl text-center">INBOX telah digunakan oleh 245 pengguna dalam setahun operasionalnya.</p>
-            <p class="text-base text-gray-500 pt-1 mx-10 sm:text-xl text-center">dan INBOX telah menyimpan sebanyak 2000 produk di gudang.</p>
-            <p class="text-base text-gray-500 pt-1  sm:text-xl text-center">iNBOX juga telah mencapai 500 transaksi per hari.</p>
+            <h3 class="pt-28 font-inter text-4xl font-bold text-center" data-aos="fade-up">Kenapa INBOX?</h3>
+            <p class="text-base text-gray-500 pt-3 mx-10 sm:text-xl text-center" data-aos="fade-up">INBOX telah digunakan oleh 245 pengguna dalam setahun operasionalnya.</p>
+            <p class="text-base text-gray-500 pt-1 mx-10 sm:text-xl text-center" data-aos="fade-up">dan INBOX telah menyimpan sebanyak 2000 produk di gudang.</p>
+            <p class="text-base text-gray-500 pt-1  sm:text-xl text-center" data-aos="fade-up">iNBOX juga telah mencapai 500 transaksi per hari.</p>
           </div>
-          <div class="container text-center mt-20 sm:flex sm:flex-wrap sm: justify-evenly sm:gap-20 ">
-            <div class="mt-20 sm:mt-10">
+          <div class="container text-center mt-20 sm:flex sm:flex-wrap sm: justify-evenly sm:gap-20">
+            <div class="mt-20 sm:mt-10" data-aos="fade-up">
               <h1 class="text-8xl font-bold text-blue-700">245</h1>
               <h4 class="font-semibold text-xl pt-2 sm:pt-5">Pengguna</h4>
             </div>
-            <div class="mt-20 sm:mt-10">
+            <div class="mt-20 sm:mt-10" data-aos="fade-up">
               <h1 class="text-8xl font-bold text-blue-700">500</h1>
               <h4 class="font-semibold text-xl pt-2 sm:pt-5">Transaksi</h4>
             </div>
-            <div class="mt-20 pb-28 sm:mt-10">
+            <div class="mt-20 pb-28 sm:mt-10" data-aos="fade-up">
               <h1 class="text-8xl font-bold text-blue-700">2000</h1>
               <h4 class="font-semibold text-xl pt-2 sm:pt-5">Produk</h4>
             </div>
@@ -127,13 +136,13 @@
 
       <article>
         <section>
-          <h3 class="text-4xl font-bold text-center mb-28">Tentang Kami</h3>
+          <h3 class="text-4xl font-bold text-center mb-32" data-aos="fade-up">Tentang Kami</h3>
           <div class="container mx-auto px-6 sm:flex">
-            <img src="Image/ijolumut.png" alt="" class="w-96 mx-auto sm:w-96">
-            <div class="pb-20">
-              <h3 class="pt-10 sm:pl-6 font-inter text-3xl font-bold text-center sm:text-left sm:w-3/5">Ijo Lumut</h3>
-              <h3 class=" font-inter sm:pl-6 text-3xl font-bold text-center sm:text-left sm:w-3/5">Warehouse Company</h3>
-              <p class="pl-6 pt-4 sm:w-3/4 sm:text-left">Ijo Lumut adalah sebuah perusahaan yang 
+            <img src="Image/ijolumut.png" alt="" class="w-96 mx-auto md:w-1/2 sm:w-96 lg:w-2/5" data-aos="fade-up">
+            <div class="pb-20 md:pb-0 md:w-full lg:pt-20">
+              <h3 class="md:pt-0 pt-10 sm:pl-6 font-inter sm:text-3xl text-2xl font-bold text-center sm:text-left sm:w-3/5" data-aos="fade-up">Ijo Lumut</h3>
+              <h3 class=" font-inter sm:pl-6 sm:text-3xl text-2xl font-bold text-center md:w-full sm:text-left sm:w-3/5" data-aos="fade-up">Warehouse Company</h3>
+              <p class="pl-6 pt-4 sm:w-3/4 md:w-full lg:w-4/5 sm:text-left sm:text-lg" data-aos="fade-up">Ijo Lumut adalah sebuah perusahaan yang 
                 bergerak dalam bidang ERP terutama dalam 
                 hal inventory management yaitu penyedia 
                 jasa sewa penyimpanan barang di gudang 
@@ -149,25 +158,25 @@
       <section class="container mx-auto text-center mb-40">
         <div class="px-10 sm:flex sm:flex-wrap sm:justify-evenly sm:pt-20">
           <div class="mb-20 sm:w-1/4">
-            <img src="Image/perusahaan.png" alt="" class="mx-auto mb-2">
-            <h3 class="font-bold text-lg">Informasi Perusahaan</h3>
-            <p class="text-gray-500">Ijo lumut Company</p>
-            <p class="text-gray-500">Jalan Kaliurang</p>
+            <img src="Image/perusahaan.png" alt="" class="mx-auto mb-2 w-16 h-16" data-aos="fade-up">
+            <h3 class="font-bold text-lg" data-aos="fade-up">Informasi Perusahaan</h3>
+            <p class="text-gray-500" data-aos="fade-up">Ijo lumut Company</p>
+            <p class="text-gray-500" data-aos="fade-up">Jalan Kaliurang</p>
           </div>
           <div class="mb-20 sm:w-1/4">
-            <img src="Image/lokasi.png" alt="" class="mx-auto mb-2">
-            <h3 class="font-bold text-lg">Alamat</h3>
-            <p class="text-gray-500">Sleman, DI Yogyakarta</p>
-            <p class="text-gray-500">Jalan Kaliurang KM.14</p>
-            <P>Zip Codes/Postal <span class="text-gray-500">code: 03875</span> </P>
+            <img src="Image/lokasi.png" alt="" class="mx-auto mb-2 w-16 h-16" data-aos="fade-up">
+            <h3 class="font-bold text-lg" data-aos="fade-up">Alamat</h3>
+            <p class="text-gray-500" data-aos="fade-up">Sleman, DI Yogyakarta</p>
+            <p class="text-gray-500" data-aos="fade-up">Jalan Kaliurang KM.14</p>
+            <P data-aos="fade-up">Zip Codes/Postal <span class="text-gray-500" data-aos="fade-up">code: 03875</span> </P>
           </div>
           <div class="mb-20 sm:w-1/4">
-            <img src="Image/hubungi.png" alt="" class="mx-auto mb-2">
-            <h3 class="font-bold text-lg">Hubungi Kami</h3>
-            <p class="text-gray-500">Hubungi kami untuk keperluan marketing
+            <img src="Image/hubungi.png" alt="" class="mx-auto mb-2 w-16 h-16" data-aos="fade-up">
+            <h3 class="font-bold text-lg" data-aos="fade-up">Hubungi Kami</h3>
+            <p class="text-gray-500" data-aos="fade-up">Hubungi kami untuk keperluan marketing
               maupun kerjasama.
             </p>
-            <p class="font-semibold">hello@ijolumut.com</p>
+            <p class="font-semibold" data-aos="fade-up">hello@ijolumut.com</p>
           </div>
 
         </div>
