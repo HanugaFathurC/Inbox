@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Admin Dashboard</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap"
+      rel="stylesheet" />
+   <script
+      src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/component.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
+</head>
+
+<body>
+
+   <!-- sidebar -->
+   <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
+      type="button"
+      class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-blue-500 rounded-lg md:hidden hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:text-blue-400 dark:hover:bg-blue-700 dark:focus:ring-blue-600">
+      <span class="sr-only">Open sidebar</span>
+      <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+         xmlns="http://www.w3.org/2000/svg">
+         <path clip-rule="evenodd" fill-rule="evenodd"
+            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+         </path>
+      </svg>
+   </button>
+
+   <aside id="logo-sidebar"
+      class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+      aria-label="Sidebar">
+      <div class="h-full px-3 py-4 overflow-y-auto bg-blue-500 dark:bg-blue-700">
+         <a href="#" class="flex items-center pl-2.5 mb-5">
+            <img
+               src="https://upload.wikimedia.org/wikipedia/commons/0/08/Puan_Maharani%2C_Ketua_DPR_RI_%28cropped%29.jpg"
+               class="h-6 mr-3 sm:h-7" alt="Flowbite Logo" />
+            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">INBOX</span>
+         </a>
+         <ul class="space-y-2 font-medium">
+            <li>
+               <a href="#"
+                  class="flex items-center p-2 text-blue-900 rounded-lg dark:text-white bg-blue-100 dark:bg-blue-600">
+                  <svg aria-hidden="true"
+                     class="flex-shrink-0 w-6 h-6 text-white-500 transition duration-75 dark:text-white-400 group-hover:text-white-900 dark:group-hover:text-white"
+                     fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+                     <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                  </svg>
+                  <span class="ml-3">Dashboard</span>
+               </a>
+            </li>
+            <li>
+               <a href="#"
+                  class="flex items-center p-2 text-blue-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-blue-600">
+                  <svg aria-hidden="true"
+                     class="flex-shrink-0 w-6 h-6 text-white-500 transition duration-75 dark:text-white-400 group-hover:text-white-900 dark:group-hover:text-white"
+                     fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                     <path
+                        d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z">
+                     </path>
+                     <path
+                        d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z">
+                     </path>
+                  </svg>
+                  <span class="flex-1 ml-3 whitespace-nowrap">Permintaan Produk</span>
+               </a>
+            </li>
+            <li>
+               <a href="#"
+                  class="flex items-center p-2 text-blue-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-blue-600">
+                  <svg aria-hidden="true"
+                     class="flex-shrink-0 w-6 h-6 text-white-500 transition duration-75 dark:text-white-400 group-hover:text-white-900 dark:group-hover:text-white"
+                     fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                     <path fill-rule="evenodd"
+                        d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z"
+                        clip-rule="evenodd"></path>
+                  </svg>
+                  <span class="flex-1 ml-3 whitespace-nowrap">Riwayat Transaksi</span>
+               </a>
+            </li>
+            <li>
+               <a href="#"
+                  class="flex items-center p-2 text-blue-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-blue-700">
+                  <svg aria-hidden="true"
+                     class="flex-shrink-0 w-6 h-6 text-white-500 transition duration-75 dark:text-white-400 group-hover:text-white-900 dark:group-hover:text-white"
+                     fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                     <path fill-rule="evenodd"
+                        d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
+                        clip-rule="evenodd"></path>
+                  </svg>
+                  <span class="flex-1 ml-3 whitespace-nowrap">Daftar Produk</span>
+               </a>
+            </li>
+         </ul>
+      </div>
+   </aside>
+
+   <!-- logout button -->
+   <div class=" flex flex-row-reverse p-4 sm:ml-64">
+      <button type="button"
+         class="text-white bg-blue-500 hover:bg-blue-500/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
+         Log Out
+      </button>
+   </div>
+
+   <!-- content -->
+   <div class="p-4 sm:ml-64">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+         <button type="button"
+            class="text-black bg-slate-50 hover:bg-slate-100/90 hover:text-black focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-l px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2 shadow-inner shadow-xl">
+            <svg aria-hidden="true"
+               class="flex-shrink-0 w-6 h-6 text-blue-500 transition duration-75 dark:text-white-400 group-hover:text-white-900 dark:group-hover:text-white"
+               fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+               <path
+                  d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z">
+               </path>
+               <path
+                  d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z">
+               </path>
+            </svg>
+            Permintaan Produk
+         </button>
+         <button type="button"
+            class="text-black bg-slate-50 hover:bg-slate-100/90 hover:text-black focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-l px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2 shadow-inner shadow-xl">
+            <svg aria-hidden="true"
+               class="flex-shrink-0 w-6 h-6 text-blue-500 transition duration-75 dark:text-white-400 group-hover:text-white-900 dark:group-hover:text-white"
+               fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+               <path fill-rule="evenodd"
+                  d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z"
+                  clip-rule="evenodd"></path>
+            </svg>
+            Riwayat Transaksi
+         </button>
+         <button type="button"
+            class="text-black bg-slate-50 hover:bg-slate-100/90 hover:text-black focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-l px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2 shadow-inner shadow-xl">
+            <svg aria-hidden="true"
+               class="flex-shrink-0 w-6 h-6 text-blue-500 transition duration-75 dark:text-white-400 group-hover:text-white-900 dark:group-hover:text-white"
+               fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+               <path fill-rule="evenodd"
+                  d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
+                  clip-rule="evenodd"></path>
+            </svg>
+            Daftar Produk
+         </button>
+      </div>
+   </div>
+
+   <div class="p-4 sm:ml-64">
+      <div class="grid grid-cols-2 gap-4 py-2">
+         <div class="...">
+            <div class="shadow-lg rounded-lg">
+               <div class="text-black font-medium rounded-lg text-l ml-2 my2">GRAFIK</div>
+               <canvas class="p-1 ml-2 sm:ml-40 mr-2 sm:mr-40 aspect-w-1 aspect-h-1" id="chartPie"></canvas>
+            </div>
+
+            <!-- Required chart.js -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            <!-- Chart pie -->
+            <script>
+               const dataPie = {
+                  labels: ["JavaScript", "Python", "Ruby"],
+                  datasets: [
+                     {
+                        label: "My First Dataset",
+                        data: [300, 50, 100],
+                        backgroundColor: [
+                           "rgb(133, 105, 241)",
+                           "rgb(164, 101, 241)",
+                           "rgb(101, 143, 241)",
+                        ],
+                        hoverOffset: 4,
+                     },
+                  ],
+               };
+
+               const configPie = {
+                  type: "pie",
+                  data: dataPie,
+                  options: {},
+               };
+
+               var chartBar = new Chart(document.getElementById("chartPie"), configPie);
+            </script>
+         </div>
+
+         <div class="shadow-lg rounded-lg overflow-hidden bg-gray-50">
+            <h3 class="text-black font-medium rounded-lg text-l text-center inline-flex items-center ml-2 my2">TOTAL PRODUK SETIAP GUDANG</h3>
+            <div class="grid grid-cols-2 gap-4 py-2">
+               <div class="py-6">
+                  <p class="text-black font-medium rounded-lg text-l ml-2 my2">Gudang Elektronik: <b class="text-blue-500">300</b></p>
+                  <p class="text-black font-medium rounded-lg text-l ml-2 my2">Gudang F&B: <b class="text-blue-500">300</b></p>
+                  <P class="text-black font-medium rounded-lg text-l ml-2 my2">Gudang Pakaian: <b class="text-blue-500">300</b></P>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+</body>
+
+</html>
