@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backoffice\DashboardController;
+use App\Http\Controllers\Backoffice\PermissionController;
+use App\Http\Controllers\Backoffice\RoleController;
+use App\Http\Controllers\Backoffice\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(['prefix' => 'backoffice', 'as' => 'backoffice.', 'middleware' => ['auth']], function(){
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
+    Route::resource('/permission', PermissionController::class);
+    Route::resource('/role', RoleController::class);
+    Route::resource('/user', UserController::class);
 });
