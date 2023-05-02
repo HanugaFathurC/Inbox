@@ -156,8 +156,7 @@
                                     <span class="badge bg-danger">{{ $product->quantity }}</span>
                                 </div>
                                 <div class="text-truncate">
-                                    <a href="{{ route('backoffice.stock.index') }}"
-                                        class="text-body d-block">{{ $product->name }}</a>
+                                    <a href="#" class="text-body d-block">{{ $product->name }}</a>
                                     <small class="d-block text-muted  mt-n1">
                                         Kategori : {{ $product->category->name }}
                                     </small>
