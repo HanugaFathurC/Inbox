@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <!-- Tabler Core -->
     <link href="{{ asset('dist/css/tabler.min.css') }}" rel="stylesheet" />
@@ -37,11 +39,11 @@
     </div>
 
     <!-- Library JS -->
-    <script src="{{ asset('dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dist/libs/jquery/dist/jquery.slim.min.js') }}"></script>
+    <script src="{{ asset('dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+
     <script src="{{ asset('dist/libs/selectize/dist/js/standalone/selectize.min.js') }}"></script>
     <script src="{{ asset('dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
-
     <!-- Tabler Core -->
     <script src="{{ asset('dist/js/tabler.min.js') }}"></script>
 
@@ -93,6 +95,7 @@
         });
     </script>
     @stack('js')
+    @stack('scripts')
 
 </body>
 

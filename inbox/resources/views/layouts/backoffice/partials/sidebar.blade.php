@@ -58,7 +58,8 @@
                 @role('admin')
                     <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Master Data</div>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link {{ Route::is('backoffice.category*') ? 'active' : '' }}"
+                            href="{{ route('backoffice.category.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-category-2"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"
@@ -76,7 +77,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link {{ Route::is('backoffice.type*') ? 'active' : '' }}"
+                            href="{{ route('backoffice.type.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-category-2"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"
@@ -94,7 +96,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link {{ Route::is('backoffice.warehouse*') ? 'active' : '' }}"
+                            href="{{ route('backoffice.warehouse.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-truck-delivery" width="24" height="24"
@@ -113,7 +116,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link {{ Route::is('backoffice.product*') ? 'active' : '' }}"
+                            href="{{ route('backoffice.product.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-database"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"
