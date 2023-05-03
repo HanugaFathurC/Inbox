@@ -9,6 +9,9 @@ use App\Http\Controllers\Backoffice\CategoryController;
 use App\Http\Controllers\Backoffice\TypeController;
 use App\Http\Controllers\Backoffice\WarehouseController;
 use App\Http\Controllers\Backoffice\ProductController;
+use App\Http\Controllers\Backoffice\ProductStockController;
+use App\Http\Controllers\Backoffice\WarehouseCapacityController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,4 +39,12 @@ Route::group(['prefix' => 'backoffice', 'as' => 'backoffice.', 'middleware' => [
     Route::post('/warehouse/create/villages', [WarehouseController::class, 'villages'])->name('warehouse.create.villages');
     Route::resource('/warehouse', WarehouseController::class);
     Route::resource('/product', ProductController::class);
+    Route::controller(ProductStockController::class)->prefix('/product-stock')->as('product-stock.')->group(function(){
+        Route::get('/index', 'index')->name('index');
+        Route::put('/update/{id}', 'update')->name('update');
+    });
+    Route::controller(WarehouseCapacityController::class)->prefix('/warehouse-capacity')->as('warehouse-capacity.')->group(function(){
+        Route::get('/index', 'index')->name('index');
+        Route::put('/update/{id}', 'update')->name('update');
+    });
 });
