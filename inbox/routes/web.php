@@ -11,6 +11,8 @@ use App\Http\Controllers\Backoffice\WarehouseController;
 use App\Http\Controllers\Backoffice\ProductController;
 use App\Http\Controllers\Backoffice\ProductStockController;
 use App\Http\Controllers\Backoffice\WarehouseCapacityController;
+use App\Http\Controllers\Backoffice\TransactionController;
+use App\Http\Controllers\Backoffice\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,4 +49,6 @@ Route::group(['prefix' => 'backoffice', 'as' => 'backoffice.', 'middleware' => [
         Route::get('/index', 'index')->name('index');
         Route::put('/update/{id}', 'update')->name('update');
     });
+    Route::get('/transaction', TransactionController::class)->name('transaction');
+    Route::resource('/order', OrderController::class);
 });
