@@ -13,6 +13,8 @@ use App\Http\Controllers\Backoffice\ProductStockController;
 use App\Http\Controllers\Backoffice\WarehouseCapacityController;
 use App\Http\Controllers\Backoffice\TransactionController;
 use App\Http\Controllers\Backoffice\OrderController;
+use App\Http\Controllers\Backoffice\ReportProductInController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +53,9 @@ Route::group(['prefix' => 'backoffice', 'as' => 'backoffice.', 'middleware' => [
     });
     Route::get('/transaction', TransactionController::class)->name('transaction');
     Route::resource('/order', OrderController::class);
+    Route::controller(ReportProductInController::class)->prefix('/report-product-in')->as('report-product-in.')->group(function(){
+        Route::get('/index', 'index')->name('index');
+        Route::get('/filter', 'filter')->name('filter');
+        Route::get('/pdf/{fromDate}/{toDate}', 'pdf')->name('pdf');
+      });
 });
