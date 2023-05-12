@@ -18,8 +18,7 @@ class OrderController extends Controller
 {
     use HasImage;
 
-    public $path = 'public/orders/';
-
+    public $path = 'public/products/';
     /**
      * Display a listing of the resource.
      *
@@ -69,14 +68,18 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $validationData = $request->validate([
+            'name' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'quantity' => 'required',
+            'unit' => 'required'
+        ]);
+
         $image = $this->uploadImage($request, $this->path);
 
-        $request->user()->orders()->create([
-            'name' => $request->name,
-            'quantity' => $request->quantity,
-            'image' => $image->hashName(),
-            'unit' => $request->unit,
-        ]);
+        $validationData['image'] = $validationData['image']->hashName();
+
+        $request->user()->orders()->create($validationData);
 
         return back()->with('toast_success', 'Data berhasil disimpan');
     }
@@ -88,24 +91,30 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
-    {
-        $image = $this->uploadImage($request, $this->path);
+    public function update(Request $request, Order $order){
+
 
         if($order->status == OrderStatus::Pending){
             $order->update([
                 'status' => OrderStatus::Verified,
             ]);
         }else{
-            Product::create([
-                'category_id' => $request->category_id,
-                'warehouse_id' => $request->warehouse_id,
-                'name' => $request->name,
-                'image' => $image->hashName(),
-                'unit' => $request->unit,
-                'description' => $request->description,
-                'quantity' => $request->quantity
+
+            $dataProductValidation = $request->validate([
+                'name' => 'required',
+                'image' => 'mimes:png,jpg,jpeg|max:2048',
+                'category_id' => 'required',
+                'warehouse_id' => 'required',
+                'description' => 'required',
+                'harga' => 'required',
+                'unit' => 'required',
+                'quantity' => 'required',
             ]);
+
+            $image = $this->uploadImage($request, $this->path);
+            $dataProductValidation['image'] = $dataProductValidation['image']->hashName();
+
+            Product::create($dataProductValidation);
 
             $order->update([
                 'status' => OrderStatus::Success
