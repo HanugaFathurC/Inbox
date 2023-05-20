@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->text('address');
             $table->string('telp');
-            $table->double('kapasitas')->default(0);
+            $table->double('capacity')->default(0);
+            $table->double('storage')->default(0);
             $table->string('image');
             $table->foreignId('type_id')->constrained()->cascadeOnDelete();
             $table->foreignId('indonesia_provinces_id')->constrained()->cascadeOnDelete();

@@ -23,10 +23,15 @@ class WarehouseCapacityController extends Controller
     {
         $warehouse = Warehouse::findOrFail($id);
 
-        $warehouse->update([
-            'kapasitas' => $request->kapasitas,
-        ]);
+        if($request->kapasitas >= 0){
+            $warehouse->update([
+                'capacity' => $request->kapasitas,
+            ]);
+            return back()->with('toast_success', 'Kapasitas berhasil ditingkatkan');
+        } else {
+            return back()->with('toast_error', 'Mohon masukan kapasitas yg valid');
+        }
 
-        return back()->with('toast_success', 'Stok berhasil disimpan');
+
     }
 }

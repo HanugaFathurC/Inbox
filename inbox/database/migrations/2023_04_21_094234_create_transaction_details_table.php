@@ -18,7 +18,6 @@ return new class extends Migration
             $table->double('quantity');
             $table->double('durasi');
             $table->integer('tagihan');
-            $table->string('status')->default('Menunggu Pembayaran');
             $table->foreignId('transaction_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
