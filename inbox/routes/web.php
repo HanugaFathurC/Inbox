@@ -13,6 +13,15 @@ use App\Http\Controllers\Backoffice\ProductStockController;
 use App\Http\Controllers\Backoffice\WarehouseCapacityController;
 use App\Http\Controllers\Backoffice\TransactionController;
 use App\Http\Controllers\Backoffice\OrderController;
+use App\Http\Controllers\Backoffice\ReportProductInController;
+use App\Http\Controllers\Landing\CartController;
+use App\Http\Controllers\Landing\AboutUsController;
+use App\Http\Controllers\Landing\HomeController;
+use App\Http\Controllers\Landing\ProductController as LandingProductController;
+use App\Http\Controllers\Landing\TransactionController as LandingTransactionController;
+use App\Http\Controllers\Landing\TypeController as LandingTypeController;
+use App\Http\Controllers\Landing\TransactionSuccessController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +34,29 @@ use App\Http\Controllers\Backoffice\OrderController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', HomeController::class)->name('home');
+
+Route::controller(LandingProductController::class)->as('product.')->group(function(){
+    Route::get('/product', 'index')->name('index');
+    Route::get('/product/{product:slug}', 'show')->name('show');
+});
+
+Route::controller(LandingTypeController::class)->as('type.')->group(function(){
+    Route::get('/type', 'index')->name('index');
+    Route::get('/type/{type:slug}', 'show')->name('show');
+});
+
+Route::post('/transaction', LandingTransactionController::class)->middleware('auth')->name('transaction.store');
+
+Route::get('/transaction-success', [TransactionSuccessController::class, 'index'])->name('transaction-success');
+
+Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
+
+Route::controller(CartController::class)->middleware('auth')->as('cart.')->group(function(){
+    Route::get('/cart', 'index')->name('index');
+    Route::post('/cart/{product:id}', 'store')->name('store');
+    Route::put('/cart/update/{cart:id}', 'update')->name('update');
+    Route::delete('/cart/delete/{cart}', 'destroy')->name('destroy');
 });
 
 Route::group(['prefix' => 'backoffice', 'as' => 'backoffice.', 'middleware' => ['auth']], function(){
@@ -51,4 +81,9 @@ Route::group(['prefix' => 'backoffice', 'as' => 'backoffice.', 'middleware' => [
     });
     Route::get('/transaction', TransactionController::class)->name('transaction');
     Route::resource('/order', OrderController::class);
+    Route::controller(ReportProductInController::class)->prefix('/report-product-in')->as('report-product-in.')->group(function(){
+        Route::get('/index', 'index')->name('index');
+        Route::get('/filter', 'filter')->name('filter');
+        Route::get('/pdf/{fromDate}/{toDate}', 'pdf')->name('pdf');
+      });
 });

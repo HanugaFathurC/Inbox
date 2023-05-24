@@ -97,7 +97,7 @@ class DashboardController extends Controller
 
         } else {
 
-            $orders = Order::where('user_id', $request->user())->get();
+            $orders = Order::where('user_id', $request->user()->id)->get();
 
             $transactions = DB::table('transactions')
                     ->join('transaction_details', 'transaction_id', '=', 'transactions.id')

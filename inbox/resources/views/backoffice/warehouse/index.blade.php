@@ -20,13 +20,14 @@
                 <x-table>
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Gambar</th>
-                            <th>Nama Gudang</th>
-                            <th>Tipe</th>
-                            <th>Alamat</th>
-                            <th>Telpon</th>
-                            <th>Aksi</th>
+                            <th class="align-middle">#</th>
+                            <th class="align-middle">Gambar</th>
+                            <th class="align-middle">Nama Gudang</th>
+                            <th class="align-middle">Tipe</th>
+                            <th class="align-middle">Alamat</th>
+                            <th class="align-middle">Telpon</th>
+                            <th class="align-middle">Ketersediaan Produk</th>
+                            <th class="align-middle">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +44,7 @@
                                     {{ $warehouse->district->name }}, {{ $warehouse->city->name }},
                                     {{ $warehouse->province->name }}</td>
                                 <td>{{ $warehouse->telp }}</td>
+                                <td>{{ $warehouse->storage }}</td>
                                 <td>
                                     @can('warehouse-update')
                                         <a href="{{ route('backoffice.warehouse.edit', $warehouse->id) }}"

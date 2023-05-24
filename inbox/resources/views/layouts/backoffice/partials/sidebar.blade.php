@@ -135,7 +135,7 @@
                     </li>
                 @endrole
                 @role('admin')
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Management Kapasitas</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Management Kuantitas</div>
                     <li class="nav-item {{ Route::is('backoffice.product-stock*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('backoffice.product-stock.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
@@ -280,7 +280,8 @@
                     </li>
                     <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Laporan</div>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link {{ Route::is('backoffice.report-product-in*') ? 'active' : '' }}"
+                            href="{{ route('backoffice.report-product-in.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-report"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"

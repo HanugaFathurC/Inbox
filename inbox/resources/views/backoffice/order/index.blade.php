@@ -23,7 +23,7 @@
                                     <td>{{ $i + $orders->firstItem() }}</td>
                                     <td>
                                         <span class="avatar rounded avatar-md"
-                                            style="background-image: url({{ $order->image }})"></span>
+                                            style="background-image: url({{ asset('storage/products/') }}/{{ basename($order->image) }})"></span>
                                     </td>
                                     <td>{{ $order->name }}</td>
                                     <td>{{ $order->quantity }}</td>
@@ -43,8 +43,8 @@
                                             <x-button-modal :id="$order->id" title="Tambahkan Permintaan" icon="plus"
                                                 style="mr-1" class="btn btn-info btn-sm" />
                                             <x-modal :id="$order->id" title="Tambahkan Barang">
-                                                <form action="{{ route('backoffice.order.update', $order->id) }}" method="POST"
-                                                    enctype="multipart/form-data">
+                                                <form action="{{ route('backoffice.order.update', $order->id) }}"
+                                                    method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
                                                     <x-input name="name" type="text" title="Nama Barang"
@@ -52,7 +52,7 @@
                                                     <div class="row">
                                                         <div class="col-6">
                                                             <x-select title="Kategori Barang" name="category_id">
-                                                                <option value="">Silahkan Pilih</option>
+                                                                <option value="">Pilih Kategori</option>
                                                                 @foreach ($categories as $category)
                                                                     <option value="{{ $category->id }}">
                                                                         {{ $category->name }}
@@ -62,8 +62,8 @@
                                                         </div>
                                                         <div class="col-6">
                                                             <x-select title="Gudang Barang" name="warehouse_id">
-                                                                <option value="">Silahkan Pilih</option>
-                                                                @foreach ($warehouse as $warehouse)
+                                                                <option value="">Pilih Gudang</option>
+                                                                @foreach ($warehouses as $warehouse)
                                                                     <option value="{{ $warehouse->id }}">
                                                                         {{ $warehouse->name }}
                                                                     </option>
@@ -81,6 +81,8 @@
                                                                 placeholder="Satuan Barang" :value="$order->unit" />
                                                         </div>
                                                     </div>
+                                                    <x-input name="harga" type="number" title="Harga" placeholder=""
+                                                        :value="old('harga')" />
                                                     <x-input name="image" type="file" title="Foto Barang" placeholder=""
                                                         :value="$order->image" />
                                                     <x-textarea name="description" title="Deskripsi Barang"
@@ -89,6 +91,8 @@
                                                     <x-button-save title="Simpan" icon="save" class="btn btn-primary" />
                                                 </form>
                                             </x-modal>
+                                        @else
+                                            Produk telah ditambahkan
                                         @endif
                                     </td>
                                 </tr>
@@ -103,6 +107,7 @@
             <div class="col-12 col-lg-8">
                 <x-card title="Daftar Permintaan Produk" class="card-body p-0">
                     <x-table>
+
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -120,7 +125,7 @@
                                     <td>{{ $i + $orders->firstItem() }}</td>
                                     <td>
                                         <span class="avatar rounded avatar-md"
-                                            style="background-image: url({{ $order->image }})"></span>
+                                            style="background-image:url({{ asset('storage/products/') }}/{{ basename($order->image) }}) "></span>
                                     </td>
                                     <td>{{ $order->name }}</td>
                                     <td>{{ $order->quantity }}</td>
@@ -133,12 +138,15 @@
                                         @if ($order->status == App\Enums\OrderStatus::Pending)
                                             <x-button-delete :id="$order->id" :url="route('backoffice.order.destroy', $order->id)" title="Hapus Data"
                                                 class="btn btn-danger btn-sm" />
+                                        @else
+                                            Produk telah ditambahkan
                                         @endif
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </x-table>
+                    <div class="d-flex justify-content-end">{{ $orders->links() }}</div>
                 </x-card>
             </div>
             <div class="col-lg-4 col-12">

@@ -26,7 +26,7 @@
                                 <td>{{ $warehouse->name }}</td>
                                 <td>{{ $warehouse->type->name }}</td>
                                 <td class="text-blue">
-                                    {{ $warehouse->kapasitas }}
+                                    {{ $warehouse->capacity }}
                                 </td>
                                 <td>
                                     <x-button-modal id="{{ $warehouse->id }}" title="Tambah Kapasitas" />
@@ -36,7 +36,7 @@
                                             @csrf
                                             @method('PUT')
                                             <x-input title="Jumlah Kapasitas" name="kapasitas" type="number" placeholder=""
-                                                value="{{ $warehouse->kapasitas }}" />
+                                                value="{{ $warehouse->capacity }}" />
                                             <x-button-save title="Simpan" />
                                         </form>
                                     </x-modal>

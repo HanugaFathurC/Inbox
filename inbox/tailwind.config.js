@@ -6,7 +6,17 @@ module.exports = {
       "./resources/**/*.vue",
     ],
     theme: {
-      extend: {},
+      extend: {
+        fontFamily: {
+            inter: ['Inter']
+        },
+        colors: {
+            'back': '#F9FAFB',
+        },
+        width: {
+            '343': '21rem'
+        }
+      },
     },
     plugins: [],
   }
