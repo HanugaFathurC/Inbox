@@ -23,8 +23,8 @@
                             <th>#</th>
                             <th>Gambar</th>
                             <th>Nama Produk</th>
-                            <th>Gudang</th>
                             <th>Kategori</th>
+                            <th>Gudang</th>
                             <th>Satuan</th>
                             <th>Harga</th>
                             <th>Aksi</th>

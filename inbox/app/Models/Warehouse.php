@@ -15,7 +15,7 @@ class Warehouse extends Model
 {
     use HasFactory, HasScope;
     protected $fillable = [
-        'name', 'indonesia_provinces_id', 'indonesia_cities_id', 'indonesia_districts_id', 'indonesia_villages_id', 'address', 'telp', 'kapasitas', 'image', 'type_id'
+        'name', 'indonesia_provinces_id', 'indonesia_cities_id', 'indonesia_districts_id', 'indonesia_villages_id', 'address', 'telp', 'capacity', 'storage', 'image', 'type_id'
     ];
 
     public function image(): Attribute

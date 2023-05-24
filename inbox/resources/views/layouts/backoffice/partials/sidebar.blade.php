@@ -135,7 +135,7 @@
                     </li>
                 @endrole
                 @role('admin')
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Management Kapasitas</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Management Kuantitas</div>
                     <li class="nav-item {{ Route::is('backoffice.product-stock*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('backoffice.product-stock.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
