@@ -81,8 +81,8 @@
                                                                 placeholder="Satuan Barang" :value="$order->unit" />
                                                         </div>
                                                     </div>
-                                                    <x-input name="harga" type="number" title="Harga" placeholder=""
-                                                        :value="old('harga')" />
+                                                    <x-input name="price" type="number" title="Harga" placeholder=""
+                                                        :value="old('price')" />
                                                     <x-input name="image" type="file" title="Foto Barang" placeholder=""
                                                         :value="$order->image" />
                                                     <x-textarea name="description" title="Deskripsi Barang"

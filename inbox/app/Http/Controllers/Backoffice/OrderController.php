@@ -106,7 +106,7 @@ class OrderController extends Controller
                 'category_id' => 'required',
                 'warehouse_id' => 'required',
                 'description' => 'required',
-                'harga' => 'required',
+                'price' => 'required',
                 'unit' => 'required',
                 'quantity' => 'required',
             ]);

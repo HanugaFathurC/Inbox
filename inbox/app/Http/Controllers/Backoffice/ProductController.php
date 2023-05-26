@@ -61,7 +61,7 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'warehouse_id' => $request->warehouse_id,
             'description' => $request->description,
-            'harga' => $request->harga,
+            'price' => $request->harga,
             'unit'=> $request->unit,
             'image' => $image->hashName(),
         ]);
@@ -100,7 +100,7 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'warehouse_id' => $request->warehouse_id,
             'description' => $request->description,
-            'harga' => $request->harga,
+            'price' => $request->harga,
             'unit' => $request->unit,
         ]);
 

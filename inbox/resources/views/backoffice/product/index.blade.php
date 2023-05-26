@@ -42,7 +42,7 @@
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->warehouse->name }}</td>
                                 <td>{{ $product->unit }}</td>
-                                <td>{{ $product->harga }}</td>
+                                <td>{{ $product->price }}</td>
                                 <td>
                                     @can('product-update')
                                         <a href="{{ route('backoffice.product.edit', $product->id) }}"

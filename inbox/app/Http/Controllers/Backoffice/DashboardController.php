@@ -84,7 +84,7 @@ class DashboardController extends Controller
 
 
             if(count($poorProduct)){
-                foreach($pporProduct as $data){
+                foreach($poorProduct as $data){
                     $labelPoor[] = $data->name;
                     $totalPoor[] = (int) $data->total;
                 }
@@ -97,12 +97,11 @@ class DashboardController extends Controller
 
         } else {
 
-            $orders = Order::where('user_id', $request->user()->id)->get();
+            $orders = Order::where('user_id', Auth::id())->get();
 
-            $transactions = DB::table('transactions')
-                    ->join('transaction_details', 'transaction_id', '=', 'transactions.id')
-                    ->where('transactions.user_id', $request->user())
-                    ->get();
+            $transactions = Transaction::with('details')
+                ->where('user_id', Auth::id())
+                ->get();
 
             return view('backoffice.dashboard', compact('orders', 'transactions'));
 

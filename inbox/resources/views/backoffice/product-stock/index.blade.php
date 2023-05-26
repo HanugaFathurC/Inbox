@@ -29,7 +29,7 @@
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->warehouse->name }}</td>
                                 <td>{{ $product->category->name }}</td>
-                                <td>{{ $product->harga }}</td>
+                                <td>{{ $product->price }}</td>
                                 <td>{{ $product->unit }}</td>
                                 <td class="text-blue">
                                     {{ $product->quantity }}

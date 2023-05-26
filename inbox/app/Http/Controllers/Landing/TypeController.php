@@ -9,23 +9,15 @@ use App\Models\Type;
 
 class TypeController extends Controller
 {
-    public function index()
-    {
-        $types = Type::latest()
-            ->search('name')
-            ->get();
-
-        return view('landing.type.index', compact('types'));
-    }
     public function show(Type $type)
     {
         $products = Product::join('warehouses', 'warehouses.id', 'products.warehouse_id')
-            ->join('types', 'types.id', 'warehouses.type_id')
+            ->select('products.*')
             ->where('warehouses.type_id', $type->id)
-            ->latest()
-            ->paginate(6)
             ->search('name')
-            ->withQueryString()();
+            ->latest('products.created_at')
+            ->paginate(6)
+            ->withQueryString();
 
         return view('landing.type.show', compact('products', 'type'));
     }

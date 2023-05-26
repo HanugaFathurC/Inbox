@@ -3,7 +3,7 @@
 @section('content')
     <x-container>
         <div class="col-12">
-            <x-card-action title="Daftar Barang Masuk" url="{{ route('backoffice.transaction') }}">
+            <x-card-action title="Daftar Transaksi" url="{{ route('backoffice.transaction') }}">
                 <x-table>
                     <thead>
                         <tr>
@@ -12,7 +12,8 @@
                             <th>Invoice</th>
                             <th>Nama Produk</th>
                             <th>Kuantitas Produk</th>
-                            <th>Tanggal Masuk</th>
+                            <th>Tanggal Transaksi</th>
+                            <th colspan="2">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,7 +33,16 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <li>{{ $transaction->created_at->getTimestamp() }}</li>
+                                    <li>{{ $transaction->created_at->format('d-m-Y') }}</li>
+                                </td>
+                                <td>
+                                    {{ $transaction->payment_status }}
+                                </td>
+                                <td>
+                                    @if ($transaction->payment_status == 'waiting')
+                                        <a href="{{ $transaction->midtrans_url }}">Bayar Sekarang</a>
+                                    @endif
+
                                 </td>
                             </tr>
                         @endforeach

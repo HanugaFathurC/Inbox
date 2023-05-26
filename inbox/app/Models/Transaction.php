@@ -10,7 +10,7 @@ class Transaction extends Model
 {
     use HasFactory, HasScope;
     protected $fillable = [
-        'invoice', 'user_id'
+        'invoice', 'grand_total' ,'user_id', 'payment_status', 'midtrans_url', 'midtrans_booking_code'
     ];
 
     public function user(){

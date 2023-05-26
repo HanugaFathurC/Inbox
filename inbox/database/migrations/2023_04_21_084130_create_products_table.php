@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('description');
             $table->double('quantity')->default(0);
             $table->string('unit');
-            $table->integer('harga')->default(0);
+            $table->integer('price')->default(0);
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('warehouse_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
