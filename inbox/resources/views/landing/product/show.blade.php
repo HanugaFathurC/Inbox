@@ -1,8 +1,8 @@
 @extends('layouts.landing.master', ['title' => 'Inbox'])
 
+
 @section('content')
-    <!-- component -->
-    <section class="text-gray-700 body-font overflow-hidden bg-white">
+ <section class="text-gray-700 body-font overflow-hidden bg-white">
         <div class="container px-5 py-24 mx-auto">
             <div class="lg:w-5/6 mx-auto flex flex-wrap">
                 <img alt="{{ $product->name }}"
