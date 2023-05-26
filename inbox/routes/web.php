@@ -42,13 +42,15 @@ Route::controller(LandingProductController::class)->as('product.')->group(functi
 });
 
 Route::controller(LandingTypeController::class)->as('type.')->group(function(){
-    Route::get('/type', 'index')->name('index');
     Route::get('/type/{type:slug}', 'show')->name('show');
 });
 
 Route::post('/transaction', LandingTransactionController::class)->middleware('auth')->name('transaction.store');
 
 Route::get('/transaction-success', [TransactionSuccessController::class, 'index'])->name('transaction-success');
+
+Route::get('payment/success', [LandingTransactionController::class, 'midtransCallback']);
+Route::post('payment/success', [LandingTransactionController::class, 'midtransCallback']);
 
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 

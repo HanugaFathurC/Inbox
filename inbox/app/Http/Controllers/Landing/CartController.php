@@ -17,7 +17,7 @@ class CartController extends Controller
             ->latest()
             ->whereBelongsTo(Auth::user())->get();
 
-        $grandQuantity = $carts->sum('quantity');
+        $grandQuantity = Cart::count();
         $grandPrice = $carts->sum('tagihan');
 
         return view('landing.cart.index', compact('carts', 'grandQuantity', 'grandPrice'));
@@ -26,47 +26,69 @@ class CartController extends Controller
 
     public function store(Request $request, Product $product)
     {
+
         $alreadyInCart = Cart::with('product')
             ->whereBelongsTo($request->user())
             ->where('product_id', $product->id)
             ->first();
 
+        $price = $product->price;
+        $duration = 1;
+        $quantity = 1;
+
+        $grandPrice = $price * $duration * $quantity;
+
         if($alreadyInCart){
-            return back()->with('toast_error', 'Produk sudah ada didalam keranjang');
-        }else{
+            return back()->with('toast_error', 'Produk sudah ada di dalam keranjang');
+        } else {
             $request->user()->carts()->create([
-                'product_id' => $product->id,
-                'quantity' => '1',
-                'durasi' => '1',
-            ]);
-            $amount = $product->harga * 1 * 1 ;
-            $request->user()->carts()->update([
-                'tagihan' => $amount,
+                    'product_id' => $product->id,
+                    'quantity' => $duration,
+                    'durasi' => $quantity,
+                    'tagihan' => $grandPrice,
             ]);
             return redirect(route('cart.index'))
-                ->with('toast_success', 'Produk berhasil ditambahkan keranjang');
+                    ->with('toast_success', 'Produk berhasil ditambahkan keranjang');
         }
+
     }
 
     public function update(Request $request, Cart $cart)
     {
         $product = Product::whereId($cart->product_id)->first();
 
-        if($product->quantity < $request->quantity){
-            return back()->with('toast_error', 'Stok produk tidak mencukupi');
-        }elseif($request->quantity <= 0 OR $request->durasi <= 0){
-            return back()->with('toast_error', 'Mohon masukan data yg valid');
-        }else{
-            $cart->update([
-                'quantity' => $request->quantity,
-                'durasi' => $request->durasi,
-            ]);
-            $amount = $cart->quantity * $cart->durasi * $product->harga;
-            $cart->update([
-                'tagihan' => $amount,
-            ]);
-            return back()->with('toast_success', 'Keranjang berhasil diperbaharui');
+        $price = $product->price;
+
+        if($request->filled('quantity')) {
+            if($product->quantity < $request->quantity){
+                return back()->with('toast_error', 'Stok produk tidak mencukupi');
+            }elseif($request->quantity <= 0){
+                return back()->with('toast_error', 'Mohon masukan data yg valid');
+            }else{
+                $grandPrice = $price * $request->quantity * $cart->durasi;
+                $cart->update([
+                    'quantity' => $request->quantity,
+                    'tagihan' => $grandPrice,
+                ]);
+
+            }
         }
+
+        if($request->filled('durasi')) {
+            if($request->durasi <= 0){
+                return back()->with('toast_error', 'Mohon masukan data yg valid');
+            }else{
+                $grandPrice = $price * $request->durasi * $cart->quantity;
+                $cart->update([
+                    'durasi' => $request->durasi,
+                    'tagihan' => $grandPrice,
+                ]);
+            }
+        }
+
+
+
+        return back()->with('toast_success', 'Keranjang berhasil diperbaharui');
     }
 
     public function destroy(Cart $cart)

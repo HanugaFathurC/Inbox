@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->id();
             $table->double('quantity');
-            $table->double('durasi');
-            $table->integer('tagihan');
+            $table->double('duration');
+            $table->integer('grand_price');
             $table->foreignId('transaction_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

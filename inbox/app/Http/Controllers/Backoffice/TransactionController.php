@@ -27,7 +27,6 @@ class TransactionController extends Controller
             $transactions = Transaction::search('invoice')
                 ->with('details')
                 ->where('user_id', Auth::id())
-                ->latest()
                 ->paginate(10)
                 ->withQueryString();
         }

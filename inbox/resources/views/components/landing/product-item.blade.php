@@ -6,6 +6,9 @@
         <a href="{{ route('product.show', $product->slug) }}">
             <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ $product->name }}</h4>
         </a>
+        <p class="text-gray-800">
+            Rp {{ number_format($product->price, 2, ',', '.') }}/Bulan
+        </p>
         @if ($product->quantity > 0)
             <p class="mb-3 font-bold text-orange-600">Stok tersedia: {{ $product->quantity }}</p>
             <div class="flex justify-between  items-center">

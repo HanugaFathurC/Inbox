@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-6">
                             <x-input title="Harga Produk" name="harga" type="number" placeholder="Masukan Harga Produk"
-                                value="{{ old('harga') }}" />
+                                value="{{ old('price') }}" />
                         </div>
                         <div class="col-6">
                             <x-input title="Satuan Produk" name="unit" type="text" placeholder="Masukan Satuan Produk"

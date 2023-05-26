@@ -10,7 +10,7 @@ class TransactionDetail extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'quantity', 'durasi', 'tagihan', 'transaction_id', 'product_id', 'payment_status', 'midtrans_url', 'midtrans_booking_code'
+        'quantity', 'duration', 'grand_price', 'transaction_id', 'product_id'
     ];
 
     protected $casts = [

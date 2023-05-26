@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('transaction_details', function (Blueprint $table) {
-            $table->string('payment_status', 100)->default('waiting')->after('product_id');
+        Schema::table('transactions', function (Blueprint $table) {
+            $table->string('payment_status', 100)->default('waiting')->after('user_id');
             $table->string('midtrans_url')->nullable()->after('payment_status');
             $table->string('midtrans_booking_code')->nullable()->after('midtrans_url');
         });
@@ -27,7 +27,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('transaction_details', function (Blueprint $table) {
+        Schema::table('transactions', function (Blueprint $table) {
             $table->dropColumn(['payment_status', 'midtrans_url', 'midtrans_booking_code']);
         });
     }

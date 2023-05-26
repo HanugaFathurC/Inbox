@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class TransactionSuccessController extends Controller
 {
     public function index(){
-        return view('landing.transaction.success');
+        return view('landing.transaction.index');
     }
 }

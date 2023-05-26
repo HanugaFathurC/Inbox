@@ -29,7 +29,7 @@ class HomeController extends Controller
                             ->selectRaw('types.name as name, types.image, sum(transaction_details.quantity) as total')
                             ->groupBy('transaction_details.product_id')
                             ->orderBy('total', 'DESC')
-                            ->limit(3)->get();
+                            ->take(3)->get();
 
         return view('landing.welcome', compact('bestTypeWarehouses', 'users', 'products', 'transactions'));
     }

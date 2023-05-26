@@ -12,7 +12,7 @@ class Product extends Model
 {
     use HasFactory, HasSlug, HasScope;
     protected $fillable = [
-        'name', 'slug', 'image' ,'description', 'quantity', 'unit', 'harga', 'category_id', 'warehouse_id'
+        'name', 'slug', 'image' ,'description', 'quantity', 'unit', 'price', 'category_id', 'warehouse_id'
     ];
 
     public function image(): Attribute
