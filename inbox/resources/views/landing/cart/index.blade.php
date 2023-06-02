@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container my-4 px-6 mx-auto">
-        <h1 class="text-4xl font-extrabold mb-5 pt-7">Keranjang</h1>
+        <h1 class="text-2xl font-extrabold mb-5 ml-28 pt-7">Keranjang</h1>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-8">
                 <x-landing.cart-table :carts=$carts :grandQuantity=$grandQuantity />
