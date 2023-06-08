@@ -322,6 +322,7 @@
                             </span>
                             <span class="nav-link-title">
                                 Pendapatan
+                                Barang Masuk
                             </span>
                         </a>
                     </li>
