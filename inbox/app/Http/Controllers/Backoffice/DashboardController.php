@@ -48,6 +48,47 @@ class DashboardController extends Controller
 
             $orders = Order::where('status', OrderStatus::Pending)->get();
 
+            $incomebyType = DB::table('transaction_details')
+                            ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
+                            ->join('products', 'transaction_details.product_id', '=', 'products.id')
+                            ->join('warehouses', 'products.warehouse_id', '=', 'warehouses.id')
+                            ->join('types', 'warehouses.type_id', '=', 'types.id')
+                            ->select(
+                                DB::raw('MONTH(transactions.created_at) AS month'),
+                                'types.name AS warehouseType',
+                                DB::raw('SUM(transactions.grand_total) AS total_income')
+                            )
+                            ->where('transactions.payment_status', 'paid')
+                            ->groupBy('month', 'warehouseType')
+                            ->get();
+                        
+            $warehouseIncome = DB::table('transaction_details')
+                            ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
+                            ->join('products', 'transaction_details.product_id', '=', 'products.id')
+                            ->join('warehouses', 'products.warehouse_id', '=', 'warehouses.id')
+                            ->where('transactions.payment_status', 'paid')
+                            ->select(
+                                DB::raw('MONTH(transactions.created_at) as month'),
+                                DB::raw('YEAR(transactions.created_at) as year'),
+                                'warehouses.name as warehouse',
+                                DB::raw('SUM(transactions.grand_total) as income')
+                            )
+                            ->groupBy('month', 'year', 'warehouse')
+                            ->orderBy('year', 'asc')
+                            ->orderBy('month', 'asc')
+                            ->get();
+
+            $allTimeIncome  = DB::table('transaction_details')
+                            ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
+                            ->select(
+                                DB::raw('DATE_FORMAT(transaction_details.created_at, "%b %Y") as month_year'),
+                                DB::raw('SUM(transactions.grand_total) as income')
+                            )
+                            ->where('transactions.payment_status', 'paid')
+                            ->groupBy('month_year')
+                            ->orderByRaw('MIN(transaction_details.created_at)')
+                            ->get();
+            
             $bestProduct = DB::table('transaction_details')
                             ->addSelect(DB::raw('products.name as name, sum(transaction_details.quantity) as total'))
                             ->join('products', 'products.id', 'transaction_details.product_id')
@@ -62,6 +103,13 @@ class DashboardController extends Controller
                             ->orderBy('total', 'ASC')
                             ->limit(5)->get();
 
+            $warehouseIncome_month = [];
+            $warehouseIncome_warehouse = [];                 
+                                  
+
+            $warehouseByType = [];
+
+            $allTimeIncome_incomeData = [];
 
             $labelBest = [];
 
@@ -93,7 +141,38 @@ class DashboardController extends Controller
                 $totalPoor[] = '';
             }
 
-            return view('backoffice.dashboard', compact('categories', 'types', 'warehouses', 'products', 'users', 'transactions', 'transactionThisMonth', 'productsOutStock', 'orders', 'labelBest', 'totalBest', 'labelPoor', 'totalPoor' ));
+            foreach ($allTimeIncome as $data) {
+                $allTimeIncome_incomeData[$data->month_year] = $data->income;
+            }
+        
+
+            foreach ($warehouseIncome as $income) {
+                $warehouseIncome_month[] = $income->month;
+                $warehouseIncome_warehouse[$income->warehouse][] = $income->income;
+            }
+    
+            $warehouseIncome_chartData = [];
+    
+            foreach ($warehouseIncome_warehouse as $warehouse => $income) {
+                $warehouseIncome_chartData[] = [
+                    'name' => $warehouse,
+                    'data' => $income,
+                ];
+            }
+                        
+            foreach ($incomebyType as $data) {
+                $month = $data->month;
+                $type_id = $data->warehouseType;
+                $totalIncome = $data->total_income;
+            
+                if (!isset($warehouseByType[$month])) {
+                    $warehouseByType[$month] = [];
+                }
+            
+                $warehouseByType[$month][$type_id] = $totalIncome;
+            }
+
+            return view('backoffice.dashboard', compact('categories', 'types', 'warehouses', 'products', 'users', 'transactions', 'transactionThisMonth', 'productsOutStock', 'orders', 'warehouseByType', 'warehouseIncome_month','warehouseIncome_chartData','allTimeIncome_incomeData', 'labelBest', 'totalBest', 'labelPoor', 'totalPoor' ));
 
         } else {
 

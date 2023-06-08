@@ -168,7 +168,6 @@
                 </x-card>
                 <div class="d-flex justify-content-end">{{ $productsOutStock->links() }}</div>
             </div>
-
             <div class="col-lg-6">
                 <x-card title="Chart barang paling populer">
                     <div id="chart-total-best" class="my-3"></div>
@@ -180,14 +179,31 @@
                     <div id="chart-total-poor" class="my-3"></div>
                 </x-card>
             </div>
+            <div class="col-lg-6">
+                <x-card title="Pendapatan Gudang per Tipe">
+                    <div id="chart-type" class="my-3"></div>
+                </x-card>
+            </div>
+
+            <div class="col-lg-6">
+                <x-card title="Pendapatan per Gudang">
+                    <div id="chart-warehouse-income" class="my-3"></div>
+                </x-card>
+            </div>
+            <div class="col-lg-6">
+                <x-card title="Traffic Pendapatan">
+                    <div id="chart-allTimeIncome" class="my-3"></div>
+                </x-card>
+            </div>
         @endrole
     </x-container>
 @endsection
 
 @push('js')
     @role('admin')
+
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
+             document.addEventListener("DOMContentLoaded", function() {
                 window.ApexCharts && (new ApexCharts(document.getElementById('chart-total-best'), {
                     chart: {
                         type: "donut",
@@ -282,6 +298,100 @@
                     }
                 })).render();
             });
+            
+            (function() {
+            var options = {
+                chart: {
+                    type: 'area',
+                    height: 350,
+                },
+                series: [{
+                    name: 'Income',
+                    data: @json(array_values($allTimeIncome_incomeData))
+                }],
+                xaxis: {
+                    categories: @json(array_keys($allTimeIncome_incomeData))
+                },
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart-allTimeIncome"), options);
+            chart.render();
+        })();
+
+              var options = {
+        chart: {
+            type: 'bar',
+            height: 350,
+            stacked: false,
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '50%',
+                endingShape: 'rounded'
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        series: [
+            @foreach($warehouseIncome_chartData as $data)
+                {
+                    name: '{{ $data['name'] }}',
+                    data: [{{ implode(',', $data['data']) }}]
+                },
+            @endforeach
+        ],
+        xaxis: {
+            categories: [{!! implode(',', $warehouseIncome_month) !!}],
+        },
+        legend: {
+            position: 'top',
+        },
+        tooltip: {
+            y: {
+                formatter: function(val) {
+                    return "$" + val;
+                }
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector('#chart-warehouse-income'), options);
+    chart.render();
+
+    
+
+            var warehouseData = @json($warehouseByType);
+
+var months = Object.keys(warehouseData);
+var categories = Object.keys(warehouseData[months[0]]);
+var seriesData = [];
+
+categories.forEach(function (category) {
+    var data = months.map(function (month) {
+        return warehouseData[month][category] || 0;
+    });
+
+    seriesData.push({
+        name: category,
+        data: data,
+    });
+});
+
+var options = {
+    chart: {
+        type: 'bar',
+        height: 350,
+    },
+    series: seriesData,
+    xaxis: {
+        categories: months,
+    },
+};
+
+var chart = new ApexCharts(document.querySelector('#chart-type'), options);
+chart.render();
         </script>
     @endrole
 @endpush
