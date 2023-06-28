@@ -34,8 +34,13 @@ class ReportIncomeController extends Controller
         ->whereDate('created_at', '<=', $toDate)
         ->get();
 
+        $grandTotal = TransactionDetail::with('products')
+        ->whereDate('created_at', '>=', $fromDate)
+        ->whereDate('created_at', '<=', $toDate)
+        ->sum('grand_price');
 
-        return view('backoffice.report-income.index', compact('fromDate', 'toDate', 'reports'));
+
+        return view('backoffice.report-income.index', compact('fromDate', 'toDate', 'reports', 'grandTotal'));
     }
 
     public function pdf($fromDate, $toDate)

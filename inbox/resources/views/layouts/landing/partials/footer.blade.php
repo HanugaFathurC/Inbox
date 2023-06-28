@@ -4,7 +4,7 @@
             <div class="md:col-span-2">
                 <div class="flex">
                     <img src="{{ asset('resources/Image/Logo.png') }}" alt="inbox-logo" class="pr-3 pb-3 w-11">
-                    <h2 class="font-bold text-2xl">Ijo Lumut</h2>
+                    <h2 class="font-bold text-2xl">INBOX</h2>
                 </div>
                 <p class="text-gray-500 pb-6">Perusahaan warehouse penyedia jasa penyewaan gudang
                     yang mengedepankan inovasi.</p>

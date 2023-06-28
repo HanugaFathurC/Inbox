@@ -158,6 +158,10 @@
                             :value="old('name')" />
                         <x-input name="quantity" type="number" title="Kuantitas" placeholder="Kuantitas" :value="old('quantity')" />
                         <x-input name="unit" type="text" title="Satuan" placeholder="Satuan" :value="old('unit')" />
+                        <x-input name="duration" type="number" title="Lama Sewa (Bulan)"
+                            placeholder="Lama sewa dalam bulanan yang diinginkan" :value="old('duration')" />
+                        <x-input name="price" type="number" title="Harga" placeholder="Harga yang diinginkan"
+                            :value="old('price')" />
                         <x-button-save title="Simpan" icon="save" class="btn btn-primary" />
                     </form>
                 </x-card>

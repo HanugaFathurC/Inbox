@@ -53,12 +53,17 @@
                                     </td>
                                     <td class="text-right">
                                         @foreach ($report->details as $detail)
-                                            <p>{{ $detail->product->grand_price }} Item</p>
+                                            <p>{{ $detail->grand_price }}</p>
                                         @endforeach
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>Total Pendapatan : {{ $grandTotal }}</td>
+                            </tr>
+                        </tfoot>
                     </x-table>
                 </x-card>
             </div>

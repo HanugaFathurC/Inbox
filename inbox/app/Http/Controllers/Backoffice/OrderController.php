@@ -28,6 +28,7 @@ class OrderController extends Controller
     {
         if(Auth::user()->hasRole('admin')){
             $orders = Order::with('user')
+                ->withTrashed()
                 ->search('name')
                 ->latest()
                 ->paginate(10)
@@ -43,6 +44,7 @@ class OrderController extends Controller
 
             $orders = Order::with('user')
                 ->where('user_id', Auth::id())
+                ->whereNull('deleted_at')
                 ->search('name')
                 ->latest()
                 ->paginate(10)
@@ -72,7 +74,9 @@ class OrderController extends Controller
             'name' => 'required',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
             'quantity' => 'required',
-            'unit' => 'required'
+            'duration' => 'required',
+            'price' => 'required',
+            'unit' => 'required',
         ]);
 
         $image = $this->uploadImage($request, $this->path);
@@ -132,7 +136,7 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        Storage::disk('local')->delete($this->path. basename($order->image));
+        // Storage::disk('local')->delete($this->path. basename($order->image));
 
         $order->delete();
 

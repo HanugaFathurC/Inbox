@@ -46,7 +46,9 @@ class DashboardController extends Controller
 
             $productsOutStock = Product::where('quantity', '<=', 10)->paginate(5);
 
-            $orders = Order::where('status', OrderStatus::Pending)->get();
+            $orders = Order::where('status', OrderStatus::Pending)
+                ->whereNull('deleted_at')
+                ->get();
 
             $incomebyType = DB::table('transaction_details')
                             ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
@@ -61,7 +63,7 @@ class DashboardController extends Controller
                             ->where('transactions.payment_status', 'paid')
                             ->groupBy('month', 'warehouseType')
                             ->get();
-                        
+
             $warehouseIncome = DB::table('transaction_details')
                             ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
                             ->join('products', 'transaction_details.product_id', '=', 'products.id')
@@ -88,7 +90,7 @@ class DashboardController extends Controller
                             ->groupBy('month_year')
                             ->orderByRaw('MIN(transaction_details.created_at)')
                             ->get();
-            
+
             $bestProduct = DB::table('transaction_details')
                             ->addSelect(DB::raw('products.name as name, sum(transaction_details.quantity) as total'))
                             ->join('products', 'products.id', 'transaction_details.product_id')
@@ -104,8 +106,8 @@ class DashboardController extends Controller
                             ->limit(5)->get();
 
             $warehouseIncome_month = [];
-            $warehouseIncome_warehouse = [];                 
-                                  
+            $warehouseIncome_warehouse = [];
+
 
             $warehouseByType = [];
 
@@ -144,31 +146,31 @@ class DashboardController extends Controller
             foreach ($allTimeIncome as $data) {
                 $allTimeIncome_incomeData[$data->month_year] = $data->income;
             }
-        
+
 
             foreach ($warehouseIncome as $income) {
                 $warehouseIncome_month[] = $income->month;
                 $warehouseIncome_warehouse[$income->warehouse][] = $income->income;
             }
-    
+
             $warehouseIncome_chartData = [];
-    
+
             foreach ($warehouseIncome_warehouse as $warehouse => $income) {
                 $warehouseIncome_chartData[] = [
                     'name' => $warehouse,
                     'data' => $income,
                 ];
             }
-                        
+
             foreach ($incomebyType as $data) {
                 $month = $data->month;
                 $type_id = $data->warehouseType;
                 $totalIncome = $data->total_income;
-            
+
                 if (!isset($warehouseByType[$month])) {
                     $warehouseByType[$month] = [];
                 }
-            
+
                 $warehouseByType[$month][$type_id] = $totalIncome;
             }
 
@@ -176,7 +178,9 @@ class DashboardController extends Controller
 
         } else {
 
-            $orders = Order::where('user_id', Auth::id())->get();
+            $orders = Order::where('user_id', Auth::id())
+            ->whereNull('deleted_at')
+            ->get();
 
             $transactions = Transaction::with('details')
                 ->where('user_id', Auth::id())

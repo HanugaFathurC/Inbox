@@ -3,13 +3,13 @@
 @section('content')
     <div class="w-full  bg-white rounded-lg shadow-lg border mx-auto sm:max-w-md px-6 py-12">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt="Your Company">
-            <h1 class="text-xl font-bold text-center text-gray-900 ">
-                INBOX
-            </h1>
+            <img class="mx-auto h-10 w-auto" src="{{ asset('resources/Image/Logo.png') }}" alt="Your Company">
+            <a href="/">
+                <h1 class="text-xl font-bold text-center text-gray-900 ">
+                    INBOX
+                </h1>
+            </a>
         </div>
-
         <div class="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
             <h3 class="text-lg font-bold text-center text-gray-600 mb-5 ">FORM - PENDAFTARAN</h3>
             <form class="space-y-6" action="{{ route('register') }}" method="POST">

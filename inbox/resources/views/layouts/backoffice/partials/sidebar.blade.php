@@ -37,9 +37,8 @@
         <div class="collapse navbar-collapse" id="navbar-menu">
             <ul class="navbar-nav pt-lg-3">
                 <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Dashboard</div>
-                <li class="nav-item">
-                    <a class="nav-link {{ Route::is('backoffice.dashboard') ? 'active' : '' }}"
-                        href="{{ route('backoffice.dashboard') }}">
+                <li class="nav-item {{ Route::is('backoffice.dashboard') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('backoffice.dashboard') }}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-tabler"
                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"
@@ -57,9 +56,8 @@
                 </li>
                 @role('admin')
                     <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Master Data</div>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('backoffice.category*') ? 'active' : '' }}"
-                            href="{{ route('backoffice.category.index') }}">
+                    <li class="nav-item {{ Route::is('backoffice.category*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.category.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-category-2"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"
@@ -76,18 +74,17 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('backoffice.type*') ? 'active' : '' }}"
-                            href="{{ route('backoffice.type.index') }}">
+                    <li class="nav-item {{ Route::is('backoffice.type*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.type.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-category-2"
-                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-category"
+                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M4 4h6v6h-6z"></path>
                                     <path d="M14 4h6v6h-6z"></path>
                                     <path d="M4 14h6v6h-6z"></path>
-                                    <circle cx="17" cy="17" r="3"></circle>
-                                    <circle cx="7" cy="7" r="3"></circle>
+                                    <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
                                 </svg>
                             </span>
                             <span class="nav-link-title">
@@ -95,9 +92,8 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('backoffice.warehouse*') ? 'active' : '' }}"
-                            href="{{ route('backoffice.warehouse.index') }}">
+                    <li class="nav-item {{ Route::is('backoffice.warehouse*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.warehouse.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-truck-delivery" width="24" height="24"
@@ -115,9 +111,8 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('backoffice.product*') ? 'active' : '' }}"
-                            href="{{ route('backoffice.product.index') }}">
+                    <li class="nav-item {{ Route::is('backoffice.product*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.product.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-database"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"
@@ -130,6 +125,30 @@
                             </span>
                             <span class="nav-link-title">
                                 Produk
+                            </span>
+                        </a>
+                    </li>
+                @endrole
+                @role('admin')
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Analisis</div>
+                    <li class="nav-item {{ Route::is('backoffice.product-stock*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.product-stock.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="icon icon-tabler icon-tabler-file-analytics" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
+                                    </path>
+                                    <path d="M9 17l0 -5"></path>
+                                    <path d="M12 17l0 -1"></path>
+                                    <path d="M15 17l0 -3"></path>
+                                </svg>
+                            </span>
+                            <span class="nav-link-title">
+                                Permintaan Produk
                             </span>
                         </a>
                     </li>
@@ -180,9 +199,8 @@
                     </li>
                 @endrole
                 <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Transaksi</div>
-                <li class="nav-item">
-                    <a class="nav-link {{ Route::is('backoffice.transaction*') ? 'active' : '' }}"
-                        href="{{ route('backoffice.transaction') }}">
+                <li class="nav-item {{ Route::is('backoffice.transaction*') ? 'active' : '' }}">
+                    <a class="nav-link " href="{{ route('backoffice.transaction') }}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 class="icon icon-tabler icon-tabler-database-export" width="24" height="24"
@@ -202,9 +220,8 @@
                         </span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Route::is('backoffice.order*') ? 'active' : '' }}"
-                        href="{{ route('backoffice.order.index') }}">
+                <li class="nav-item {{ Route::is('backoffice.order*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('backoffice.order.index') }}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-database"
                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"
@@ -242,9 +259,8 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('backoffice.role*') ? 'active' : '' }}"
-                            href="{{ route('backoffice.role.index') }}">
+                    <li class="nav-item {{ Route::is('backoffice.role*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.role.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-check"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"
@@ -260,9 +276,8 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('backoffice.user*') ? 'active' : '' }}"
-                            href="{{ route('backoffice.user.index') }}">
+                    <li class="nav-item {{ Route::is('backoffice.user*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.user.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"
@@ -279,9 +294,8 @@
                         </a>
                     </li>
                     <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Laporan</div>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('backoffice.report-product-in*') ? 'active' : '' }}"
-                            href="{{ route('backoffice.report-product-in.index') }}">
+                    <li class="nav-item {{ Route::is('backoffice.report-product-in*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.report-product-in.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-report"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"
@@ -302,9 +316,8 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('backoffice.report-income*') ? 'active' : '' }}"
-                            href="{{ route('backoffice.report-income.index') }}">
+                    <li class="nav-item {{ Route::is('backoffice.report-income*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.report-income.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-report"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25"

@@ -11,7 +11,7 @@
             </div>
             <input type="search" id="default-search"
                 class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Cari produk..." required value="{{ request()->search }}" name="search">
+                placeholder="Cari produk..." value="{{ request()->search }}" name="search">
         </div>
     </form>
 </div>

@@ -2,15 +2,15 @@
 
 
 @section('content')
- <section class="text-gray-700 body-font overflow-hidden bg-white">
+    <section class="text-gray-700 body-font overflow-hidden bg-white">
         <div class="container px-5 py-24 mx-auto">
             <div class="lg:w-5/6 mx-auto flex flex-wrap">
                 <img alt="{{ $product->name }}"
-                    class="lg:w-1/2 lg:h-4/5 w-full object-cover object-center rounded border border-gray-200 mt-6"
+                    class="lg:w-1/2 lg:h-4/5 w-full object-cover object-center rounded border border-gray-200 mt-6 shadow-md"
                     src="{{ $product->image }}">
                 <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-14 lg:mt-0 flex flex-col justify-between">
                     <h1 class="text-gray-900 text-2xl font-bold  ">{{ $product->name }}</h1>
-                    <h2 class="text-sm text-gray-500 mt-2 mb-2 tracking-widest">Gudang {{ $product->warehouse->name }}</h2>
+                    <h2 class="text-sm text-gray-500 mt-2 mb-2 tracking-widest">{{ $product->warehouse->type->name }}</h2>
 
                     <span class="title-font font-bold text-3xl text-gray-900 mt-6">Rp
                         {{ number_format($product->price, 2, ',', '.') }}</span>
@@ -25,7 +25,7 @@
                             Detail
                         </span>
                     </div>
-                    <h3 class="title-font text-gray-500 "> Kategori :
+                    <h3 class="title-font text-gray-500 "> Kategori <br />
                         <span class="text-black font-medium"> {{ $product->category->name }}</span>
                     </h3>
 
@@ -33,9 +33,9 @@
                         <span class="text-black font-medium"> {{ $product->description }}</span>
                     </h3>
 
-                    <h3 class="title-font text-gray-500 "> Tersimpan di Gudang {{ $product->warehouse->type->name }} <br>
+                    <h3 class="title-font text-gray-500 "> Tersimpan di {{ $product->warehouse->name }}<br>
                         <span class="text-black font-medium">
-                            Alamat {{ $product->warehouse->address }}, {{ $product->warehouse->village->name }},
+                            {{ $product->warehouse->address }}, {{ $product->warehouse->village->name }},
                             {{ $product->warehouse->district->name }}, {{ $product->warehouse->city->name }},
                             {{ $product->warehouse->province->name }}
                         </span>

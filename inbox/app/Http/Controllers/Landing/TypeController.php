@@ -14,11 +14,14 @@ class TypeController extends Controller
         $products = Product::join('warehouses', 'warehouses.id', 'products.warehouse_id')
             ->select('products.*')
             ->where('warehouses.type_id', $type->id)
-            ->search('name')
+            ->search('products.name')
             ->latest('products.created_at')
             ->paginate(6)
             ->withQueryString();
 
-        return view('landing.type.show', compact('products', 'type'));
+        $types = Type::latest()
+            ->get();
+
+        return view('landing.type.show', compact('products', 'type', 'types'));
     }
 }
