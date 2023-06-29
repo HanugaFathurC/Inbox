@@ -130,9 +130,9 @@
                     </li>
                 @endrole
                 @role('admin')
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Analisis</div>
-                    <li class="nav-item {{ Route::is('backoffice.product-stock*') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('backoffice.product-stock.index') }}">
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Analisis SAW</div>
+                    <li class="nav-item {{ Route::is('backoffice.criteria*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.criteria.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-file-analytics" width="24" height="24"
@@ -148,7 +148,7 @@
                                 </svg>
                             </span>
                             <span class="nav-link-title">
-                                Permintaan Produk
+                                Kriteria
                             </span>
                         </a>
                     </li>

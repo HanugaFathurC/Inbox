@@ -13,6 +13,7 @@ use App\Http\Controllers\Backoffice\ProductStockController;
 use App\Http\Controllers\Backoffice\WarehouseCapacityController;
 use App\Http\Controllers\Backoffice\TransactionController;
 use App\Http\Controllers\Backoffice\OrderController;
+use App\Http\Controllers\Backoffice\CriteriaController;
 use App\Http\Controllers\Backoffice\ReportIncomeController;
 use App\Http\Controllers\Backoffice\ReportProductInController;
 use App\Http\Controllers\Landing\CartController;
@@ -82,6 +83,9 @@ Route::group(['prefix' => 'backoffice', 'as' => 'backoffice.', 'middleware' => [
         Route::get('/index', 'index')->name('index');
         Route::put('/update/{id}', 'update')->name('update');
     });
+    Route::get('/criteria', [CriteriaController::class, 'index'])->name('criteria.index');
+    Route::get('/criteria/{criteria}/edit', [CriteriaController::class, 'edit'])->name('criteria.edit');
+    Route::put('/criteria/{criteria}', [CriteriaController::class, 'update'])->name('criteria.update');
     Route::get('/transaction', TransactionController::class)->name('transaction');
     Route::resource('/order', OrderController::class);
     Route::controller(ReportProductInController::class)->prefix('/report-product-in')->as('report-product-in.')->group(function(){
