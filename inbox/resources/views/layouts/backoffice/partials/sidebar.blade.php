@@ -152,6 +152,48 @@
                             </span>
                         </a>
                     </li>
+                    <li class="nav-item {{ Route::is('backoffice.calculate*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.calculate.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="icon icon-tabler icon-tabler-file-analytics" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
+                                    </path>
+                                    <path d="M9 17l0 -5"></path>
+                                    <path d="M12 17l0 -1"></path>
+                                    <path d="M15 17l0 -3"></path>
+                                </svg>
+                            </span>
+                            <span class="nav-link-title">
+                                Perhitungan
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::is('backoffice.result*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.result.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="icon icon-tabler icon-tabler-file-analytics" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
+                                    </path>
+                                    <path d="M9 17l0 -5"></path>
+                                    <path d="M12 17l0 -1"></path>
+                                    <path d="M15 17l0 -3"></path>
+                                </svg>
+                            </span>
+                            <span class="nav-link-title">
+                                Hasil Analisis
+                            </span>
+                        </a>
+                    </li>
                 @endrole
                 @role('admin')
                     <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Management Kuantitas</div>

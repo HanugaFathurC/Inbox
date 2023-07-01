@@ -14,6 +14,8 @@ use App\Http\Controllers\Backoffice\WarehouseCapacityController;
 use App\Http\Controllers\Backoffice\TransactionController;
 use App\Http\Controllers\Backoffice\OrderController;
 use App\Http\Controllers\Backoffice\CriteriaController;
+use App\Http\Controllers\Backoffice\CalculateController;
+use App\Http\Controllers\Backoffice\ResultController;
 use App\Http\Controllers\Backoffice\ReportIncomeController;
 use App\Http\Controllers\Backoffice\ReportProductInController;
 use App\Http\Controllers\Landing\CartController;
@@ -23,6 +25,7 @@ use App\Http\Controllers\Landing\ProductController as LandingProductController;
 use App\Http\Controllers\Landing\TransactionController as LandingTransactionController;
 use App\Http\Controllers\Landing\TypeController as LandingTypeController;
 use App\Http\Controllers\Landing\TransactionSuccessController;
+
 
 
 /*
@@ -86,6 +89,11 @@ Route::group(['prefix' => 'backoffice', 'as' => 'backoffice.', 'middleware' => [
     Route::get('/criteria', [CriteriaController::class, 'index'])->name('criteria.index');
     Route::get('/criteria/{criteria}/edit', [CriteriaController::class, 'edit'])->name('criteria.edit');
     Route::put('/criteria/{criteria}', [CriteriaController::class, 'update'])->name('criteria.update');
+    Route::get('/calculate', [CalculateController::class, 'index'])->name('calculate.index');
+    Route::post('/calculate', [CalculateController::class, 'calculate'])->name('calculate.calculate');
+    Route::get('/result', [ResultController::class, 'index'])->name('result.index');
+    Route::get('/result/{id}', [ResultController::class, 'show'])->name('result.show');
+    Route::delete('/result/{id}', [ResultController::class, 'destroy'])->name('result.destroy');
     Route::get('/transaction', TransactionController::class)->name('transaction');
     Route::resource('/order', OrderController::class);
     Route::controller(ReportProductInController::class)->prefix('/report-product-in')->as('report-product-in.')->group(function(){
