@@ -99,8 +99,6 @@ class CalculateController extends Controller
              $normalizedValue = $value / $maxValue;
          } elseif ($attributeType === 'Cost') {
              $normalizedValue = $minValue / $value;
-         } else {
-             $normalizedValue = $value;
          }
 
          return $normalizedValue;

@@ -10,13 +10,15 @@ use App\Models\Type;
 use App\Models\Warehouse;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\AnalyticLog;
+use App\Models\AnalyticDetail;
 use App\Enums\OrderStatus;
 use App\Enums\TransactionStatus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -29,6 +31,7 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
         if(Auth::user()->hasRole('admin')){
+
 
             $categories = Category::count();
 
@@ -49,6 +52,30 @@ class DashboardController extends Controller
             $orders = Order::where('status', OrderStatus::Pending)
                 ->whereNull('deleted_at')
                 ->get();
+
+            $analyticLogs = AnalyticLog::latest()->take(1)->get();
+
+            $recommendationProducts = [];
+
+            $recommendationCreated ;
+
+            foreach ($analyticLogs as $analyticLog) {
+                $analyticDetails = AnalyticDetail::where('analytic_log_id', $analyticLog->id)
+                    ->orderBy('final_score', 'desc')
+                    ->take(3)
+                    ->get();
+
+                $recommendationCreated  = Carbon::parse($analyticLog->created_at)->timezone('Asia/Jakarta');
+
+                foreach ($analyticDetails as $analyticDetail) {
+                    $recommendationProducts[] = [
+                        'order' => $analyticDetail->order,
+                        'saw_score' => $analyticDetail->total_score,
+                        'created_at' => $analyticDetail->created_at,
+                        'rank' => $analyticDetail->rank
+                    ];
+                }
+            }
 
             $incomebyType = DB::table('transaction_details')
                             ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
@@ -80,30 +107,36 @@ class DashboardController extends Controller
                             ->orderBy('month', 'asc')
                             ->get();
 
-            $allTimeIncome  = DB::table('transaction_details')
-                            ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
-                            ->select(
-                                DB::raw('DATE_FORMAT(transaction_details.created_at, "%b %Y") as month_year'),
-                                DB::raw('SUM(transactions.grand_total) as income')
-                            )
-                            ->where('transactions.payment_status', 'paid')
-                            ->groupBy('month_year')
-                            ->orderByRaw('MIN(transaction_details.created_at)')
-                            ->get();
+            // $allTimeIncome  = DB::table('transaction_details')
+            //                 ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
+            //                 ->select(
+            //                     DB::raw('DATE_FORMAT(transaction_details.created_at, "%b %Y") as month_year'),
+            //                     DB::raw('SUM(transactions.grand_total) as income')
+            //                 )
+            //                 ->where('transactions.payment_status', 'paid')
+            //                 ->groupBy('month_year')
+            //                 ->orderByRaw('MIN(transaction_details.created_at)')
+            //                 ->get();
+
+            $allTimeIncome = Transaction::select(DB::raw('DATE_FORMAT(created_at, "%b %Y") as month_year'), DB::raw('SUM(grand_total) as income'))
+            ->where('payment_status', 'paid')
+            ->groupBy('month_year')
+            ->orderByRaw('MIN(created_at)')
+            ->get();
 
             $bestProduct = DB::table('transaction_details')
                             ->addSelect(DB::raw('products.name as name, sum(transaction_details.quantity) as total'))
                             ->join('products', 'products.id', 'transaction_details.product_id')
                             ->groupBy('transaction_details.product_id')
                             ->orderBy('total', 'DESC')
-                            ->limit(5)->get();
+                            ->limit(3)->get();
 
             $poorProduct =  DB::table('transaction_details')
                             ->addSelect(DB::raw('products.name as name, sum(transaction_details.quantity) as total'))
                             ->join('products', 'products.id', 'transaction_details.product_id')
                             ->groupBy('transaction_details.product_id')
                             ->orderBy('total', 'ASC')
-                            ->limit(5)->get();
+                            ->limit(3)->get();
 
             $warehouseIncome_month = [];
             $warehouseIncome_warehouse = [];
@@ -174,7 +207,7 @@ class DashboardController extends Controller
                 $warehouseByType[$month][$type_id] = $totalIncome;
             }
 
-            return view('backoffice.dashboard', compact('categories', 'types', 'warehouses', 'products', 'users', 'transactions', 'transactionThisMonth', 'productsOutStock', 'orders', 'warehouseByType', 'warehouseIncome_month','warehouseIncome_chartData','allTimeIncome_incomeData', 'labelBest', 'totalBest', 'labelPoor', 'totalPoor' ));
+            return view('backoffice.dashboard', compact('categories', 'types', 'warehouses', 'products', 'users', 'transactions', 'transactionThisMonth', 'productsOutStock', 'orders', 'warehouseByType', 'warehouseIncome_month','warehouseIncome_chartData','allTimeIncome_incomeData', 'labelBest', 'totalBest', 'labelPoor', 'totalPoor', 'recommendationProducts', 'recommendationCreated' ));
 
         } else {
 

@@ -17,15 +17,15 @@
                 </x-widget>
             </div>
             <div class="col-6 col-lg-3">
-                <x-widget title="Types" subtitle="{{ $types }}" class="bg-azure">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-category-2" width="24"
-                        height="24" viewBox="0 0 24 24" stroke-width="1.25" stroke="currentColor" fill="none"
+                <x-widget title="Types" subtitle="{{ $types }}" class="bg-yellow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-category" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M4 4h6v6h-6z"></path>
                         <path d="M14 4h6v6h-6z"></path>
                         <path d="M4 14h6v6h-6z"></path>
-                        <circle cx="17" cy="17" r="3"></circle>
-                        <circle cx="7" cy="7" r="3"></circle>
+                        <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
                     </svg>
                 </x-widget>
             </div>
@@ -117,6 +117,24 @@
                     </div>
                 @endif
             </div>
+            <div class="col-12">
+                <x-card title="Rekomendasi Produk Per {{ strftime('%e %B %Y - %H:%M', strtotime($recommendationCreated)) }}">
+                    <div class="list list-row list-hoverable">
+                        <div class="list list-row list-hoverable">
+                            @foreach ($recommendationProducts as $product)
+                                <div class="list-item">
+                                    <div>
+                                        <span class="badge bg-info">{{ $product['rank'] }}</span>
+                                    </div>
+                                    <div class="text-truncate">
+                                        <p class="mt-3">{{ $product['order']->name }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </x-card>
+            </div>
         @endrole
         @role('customer')
             <div class="col-6">
@@ -180,18 +198,18 @@
                 </x-card>
             </div>
             <div class="col-lg-6">
-                <x-card title="Pendapatan Gudang per Tipe">
+                <x-card title="Pendapatan Gudang Tiap Tipe Per Bulan">
                     <div id="chart-type" class="my-3"></div>
                 </x-card>
             </div>
 
             <div class="col-lg-6">
-                <x-card title="Pendapatan per Gudang">
+                <x-card title="Pendapatan Tiap Gudang Per Bulan">
                     <div id="chart-warehouse-income" class="my-3"></div>
                 </x-card>
             </div>
-            <div class="col-lg-6">
-                <x-card title="Traffic Pendapatan">
+            <div class="col-lg-12">
+                <x-card title="All Time Traffic Pendapatan">
                     <div id="chart-allTimeIncome" class="my-3"></div>
                 </x-card>
             </div>
@@ -201,9 +219,8 @@
 
 @push('js')
     @role('admin')
-
         <script>
-             document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function() {
                 window.ApexCharts && (new ApexCharts(document.getElementById('chart-total-best'), {
                     chart: {
                         type: "donut",
@@ -298,100 +315,101 @@
                     }
                 })).render();
             });
-            
+
             (function() {
+                var options = {
+                    chart: {
+                        type: 'area',
+                        height: 350,
+                    },
+                    series: [{
+                        name: 'Income',
+                        data: @json(array_values($allTimeIncome_incomeData))
+                    }],
+                    xaxis: {
+                        categories: @json(array_keys($allTimeIncome_incomeData)),
+                    },
+                };
+
+                var chart = new ApexCharts(document.querySelector("#chart-allTimeIncome"), options);
+                chart.render();
+            })();
+
             var options = {
                 chart: {
-                    type: 'area',
+                    type: 'bar',
                     height: 350,
+                    stacked: false,
                 },
-                series: [{
-                    name: 'Income',
-                    data: @json(array_values($allTimeIncome_incomeData))
-                }],
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '50%',
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                series: [
+                    @foreach ($warehouseIncome_chartData as $data)
+                        {
+                            name: '{{ $data['name'] }}',
+                            data: [{{ implode(',', $data['data']) }}]
+                        },
+                    @endforeach
+                ],
                 xaxis: {
-                    categories: @json(array_keys($allTimeIncome_incomeData))
+                    categories: [{!! implode(',', array_unique($warehouseIncome_month)) !!}],
                 },
+                legend: {
+                    position: 'bottom',
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return "$" + val;
+                        }
+                    }
+                }
             };
 
-            var chart = new ApexCharts(document.querySelector("#chart-allTimeIncome"), options);
+            var chart = new ApexCharts(document.querySelector('#chart-warehouse-income'), options);
             chart.render();
-        })();
 
-              var options = {
-        chart: {
-            type: 'bar',
-            height: 350,
-            stacked: false,
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '50%',
-                endingShape: 'rounded'
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        series: [
-            @foreach($warehouseIncome_chartData as $data)
-                {
-                    name: '{{ $data['name'] }}',
-                    data: [{{ implode(',', $data['data']) }}]
-                },
-            @endforeach
-        ],
-        xaxis: {
-            categories: [{!! implode(',', $warehouseIncome_month) !!}],
-        },
-        legend: {
-            position: 'top',
-        },
-        tooltip: {
-            y: {
-                formatter: function(val) {
-                    return "$" + val;
-                }
-            }
-        }
-    };
-
-    var chart = new ApexCharts(document.querySelector('#chart-warehouse-income'), options);
-    chart.render();
-
-    
 
             var warehouseData = @json($warehouseByType);
 
-var months = Object.keys(warehouseData);
-var categories = Object.keys(warehouseData[months[0]]);
-var seriesData = [];
+            var months = Object.keys(warehouseData);
+            var categories = Object.keys(warehouseData[months[0]]);
+            var seriesData = [];
 
-categories.forEach(function (category) {
-    var data = months.map(function (month) {
-        return warehouseData[month][category] || 0;
-    });
+            categories.forEach(function(category) {
+                var data = months.map(function(month) {
+                    return warehouseData[month][category] || 0;
+                });
 
-    seriesData.push({
-        name: category,
-        data: data,
-    });
-});
+                seriesData.push({
+                    name: category,
+                    data: data,
+                });
+            });
 
-var options = {
-    chart: {
-        type: 'bar',
-        height: 350,
-    },
-    series: seriesData,
-    xaxis: {
-        categories: months,
-    },
-};
+            var options = {
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                },
+                series: seriesData,
+                xaxis: {
+                    categories: months,
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+            };
 
-var chart = new ApexCharts(document.querySelector('#chart-type'), options);
-chart.render();
+            var chart = new ApexCharts(document.querySelector('#chart-type'), options);
+            chart.render();
         </script>
     @endrole
 @endpush
