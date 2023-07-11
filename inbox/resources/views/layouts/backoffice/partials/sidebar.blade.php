@@ -130,6 +130,7 @@
                     </li>
                 @endrole
                 @role('admin')
+                    <?php if(Auth::user()->hasRole('manajer')){ ?>
                     <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Analisis SAW</div>
                     <li class="nav-item {{ Route::is('backoffice.criteria*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('backoffice.criteria.index') }}">
@@ -194,11 +195,12 @@
                             </span>
                         </a>
                     </li>
+                    <?php } ?>
                 @endrole
                 @role('admin')
                     <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Management Kuantitas</div>
-                    <li class="nav-item {{ Route::is('backoffice.product-stock*') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('backoffice.product-stock.index') }}">
+                    <li class="nav-item {{ Route::is('backoffice.stock-product*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.stock-product.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-database-import" width="24" height="24"
@@ -218,8 +220,8 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::is('backoffice.warehouse-capacity*') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('backoffice.warehouse-capacity.index') }}">
+                    <li class="nav-item {{ Route::is('backoffice.capacity-warehouse*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('backoffice.capacity-warehouse.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-database-import" width="24" height="24"
@@ -282,6 +284,7 @@
                     </a>
                 </li>
                 @role('admin')
+                    <?php if(Auth::user()->hasRole('eksekutif-manajer')){ ?>
                     <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Management User</div>
                     <li class="nav-item {{ Route::is('backoffice.permission*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('backoffice.permission.index') }}">
@@ -335,6 +338,7 @@
                             </span>
                         </a>
                     </li>
+                    <?php } ?>
                     <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Laporan</div>
                     <li class="nav-item {{ Route::is('backoffice.report-product-in*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('backoffice.report-product-in.index') }}">

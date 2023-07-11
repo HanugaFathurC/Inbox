@@ -3,7 +3,7 @@
 @section('content')
     <x-container>
         <div class="col-12">
-            <x-card-action title="Daftar Gudang" url="{{ route('backoffice.warehouse-capacity.index') }}">
+            <x-card-action title="Daftar Gudang" url="{{ route('backoffice.capacity-warehouse.index') }}">
                 <x-table>
                     <thead>
                         <tr>
@@ -31,7 +31,7 @@
                                 <td>
                                     <x-button-modal id="{{ $warehouse->id }}" title="Tambah Kapasitas" />
                                     <x-modal id="{{ $warehouse->id }}" title="Tambah Kapasitas">
-                                        <form action="{{ route('backoffice.warehouse-capacity.update', $warehouse->id) }}"
+                                        <form action="{{ route('backoffice.capacity-warehouse.update', $warehouse->id) }}"
                                             method="POST">
                                             @csrf
                                             @method('PUT')

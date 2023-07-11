@@ -25,14 +25,14 @@
                 yang akan membantu Anda <br>
                 dalam menyimpan produk dengan aman dan mudah.</p>
 
-            @if (count($bestTypeWarehouses) <= 3)
+            @if (count($bestTypeWarehouses) < 3)
                 <p class="text-base text-gray-500 pt-3 sm:text-xl">Mohon maaf, belum ada rekomendasi gudang untukmu</p>
             @else
                 <div class="grid mt-10 md:grid-cols-3 gap-6 md:gap-x-12">
                     <!-- Star contents top category of warehousing -->
                     @foreach ($bestTypeWarehouses as $type)
                         <div class="mb-6 bg-white shadow-md p-5 lg:mb-0" data-aos="fade-up">
-                            <img src="{{ asset('storage/types/') }}/{{ basename($type->image) }}"
+                            <img src="{{ asset('storage/warehouses/') }}/{{ basename($type->image) }}"
                                 alt="gudang-{{ $type->name }}" class="w-full rounded-sm">
                             <p class="font-semibold pt-4 pb-6 text-left">{{ $type->name }}
 
@@ -82,7 +82,7 @@
                 <img src="{{ asset('resources/Image/ijolumut.png') }}" alt="company-image" class="w-full lg:w-1/2"
                     data-aos="fade-up">
                 <div class="my-auto">
-                    <h3 class="font-inter text-2xl font-bold text-center lg:text-left  " data-aos="fade-up">INBOZ
+                    <h3 class="font-inter text-2xl font-bold text-center lg:text-left  " data-aos="fade-up">INBOX
                     </h3>
                     <p class="font-inter text-2xl font-bold text-center lg:text-left" data-aos="fade-up">Warehouse
                         Company

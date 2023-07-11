@@ -25,18 +25,18 @@
         <a href="/" class="btn bg-blue-600">Kembali berbelanja</a>
     </main> -->
 
-    
-                <div class="text-center ">
-                    <img src="{{ asset('resources/Image/checklist.png') }}" alt="success" class="w-100 mb-8 mx-auto">
-                    <h1 class="text-2xl font-bold text-blue-500 mb-2">Pembayaran Sukses</h1>
-                    <p class="text-xl text-gray-600 mb-12">Selamat menikmati kemudahan dalam aplikasi INBOX</p>
-                    <a href="{{ route('backoffice.dashboard') }}"
-                        class="bg-blue-500 text-white py-2 px-4 rounded  hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                        Back to home
-                    </a>
-                </div>
-            </section>
-        
+
+    <div class="text-center ">
+        <img src="{{ asset('resources/Image/checklist.png') }}" alt="success" class="w-100 mb-8 mx-auto">
+        <h1 class="text-2xl font-bold text-blue-500 mb-2">Pembayaran Sukses</h1>
+        <p class="text-xl text-gray-600 mb-12">Selamat menikmati kemudahan dalam aplikasi INBOX</p>
+        <a href="{{ route('product.index') }}"
+            class="bg-blue-500 text-white py-2 px-4 rounded  hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+            Kembali Berbelanja
+        </a>
+    </div>
+    </section>
+
 
 </body>
 

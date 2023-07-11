@@ -58,12 +58,11 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                        <tfoot>
                             <tr>
-                                <td>Total Pendapatan : {{ $grandTotal }}</td>
+                                <td class="col-4 ms-auto ">Total Pendapatan : {{ $grandTotal }}</td>
                             </tr>
-                        </tfoot>
+                        </tbody>
+
                     </x-table>
                 </x-card>
             </div>

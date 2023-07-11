@@ -78,11 +78,11 @@ Route::group(['prefix' => 'backoffice', 'as' => 'backoffice.', 'middleware' => [
     Route::post('/warehouse/create/villages', [WarehouseController::class, 'villages'])->name('warehouse.create.villages');
     Route::resource('/warehouse', WarehouseController::class);
     Route::resource('/product', ProductController::class);
-    Route::controller(ProductStockController::class)->prefix('/product-stock')->as('product-stock.')->group(function(){
+    Route::controller(ProductStockController::class)->prefix('/stock-product')->as('stock-product.')->group(function(){
         Route::get('/index', 'index')->name('index');
         Route::put('/update/{id}', 'update')->name('update');
     });
-    Route::controller(WarehouseCapacityController::class)->prefix('/warehouse-capacity')->as('warehouse-capacity.')->group(function(){
+    Route::controller(WarehouseCapacityController::class)->prefix('/capacity-warehouse')->as('capacity-warehouse.')->group(function(){
         Route::get('/index', 'index')->name('index');
         Route::put('/update/{id}', 'update')->name('update');
     });

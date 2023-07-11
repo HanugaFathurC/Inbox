@@ -26,8 +26,8 @@ class HomeController extends Controller
         $bestTypeWarehouses = TransactionDetail::join('products', 'products.id', 'transaction_details.product_id')
                             ->join('warehouses', 'warehouses.id', 'products.warehouse_id')
                             ->join('types', 'types.id', 'warehouses.type_id')
-                            ->selectRaw('types.name as name, types.image, sum(transaction_details.quantity) as total')
-                            ->groupBy('transaction_details.product_id')
+                            ->selectRaw('warehouses.name as name, warehouses.image, sum(transaction_details.quantity) as total')
+                            ->groupBy('warehouses.id')
                             ->orderBy('total', 'DESC')
                             ->take(3)->get();
 

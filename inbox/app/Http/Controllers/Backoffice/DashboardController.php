@@ -57,7 +57,7 @@ class DashboardController extends Controller
 
             $recommendationProducts = [];
 
-            $recommendationCreated ;
+            $recommendationCreated = "" ;
 
             foreach ($analyticLogs as $analyticLog) {
                 $analyticDetails = AnalyticDetail::where('analytic_log_id', $analyticLog->id)
@@ -138,7 +138,6 @@ class DashboardController extends Controller
                             ->orderBy('total', 'ASC')
                             ->limit(3)->get();
 
-            $warehouseIncome_month = [];
             $warehouseIncome_warehouse = [];
 
 
@@ -182,7 +181,6 @@ class DashboardController extends Controller
 
 
             foreach ($warehouseIncome as $income) {
-                $warehouseIncome_month[] = $income->month;
                 $warehouseIncome_warehouse[$income->warehouse][] = $income->income;
             }
 
@@ -207,7 +205,7 @@ class DashboardController extends Controller
                 $warehouseByType[$month][$type_id] = $totalIncome;
             }
 
-            return view('backoffice.dashboard', compact('categories', 'types', 'warehouses', 'products', 'users', 'transactions', 'transactionThisMonth', 'productsOutStock', 'orders', 'warehouseByType', 'warehouseIncome_month','warehouseIncome_chartData','allTimeIncome_incomeData', 'labelBest', 'totalBest', 'labelPoor', 'totalPoor', 'recommendationProducts', 'recommendationCreated' ));
+            return view('backoffice.dashboard', compact('categories', 'types', 'warehouses', 'products', 'users', 'transactions', 'transactionThisMonth', 'productsOutStock', 'orders', 'warehouseByType','warehouseIncome_chartData','allTimeIncome_incomeData', 'labelBest', 'totalBest', 'labelPoor', 'totalPoor', 'recommendationProducts', 'recommendationCreated' ));
 
         } else {
 
