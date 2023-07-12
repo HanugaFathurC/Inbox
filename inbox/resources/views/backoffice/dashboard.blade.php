@@ -203,6 +203,7 @@
             <div class="col-lg-12">
                 <x-card title="Chart pendapatan tiap gudang">
                     <div id="chart-warehouse-income" class="my-3"></div>
+
                 </x-card>
             </div>
             <?php } ?>
@@ -346,11 +347,101 @@
                 chart.render();
             })();
 
+            var chartData = [
+                @foreach ($warehouseIncome as $data)
+                    {
+                        month_year: '{{ $data->month_year }}',
+                        warehouse: '{{ $data->warehouse }}',
+                        income: {{ $data->income }},
+                    },
+                @endforeach
+            ];
+
+            var categories = Array.from(new Set(chartData.map(item => item.month_year)));
+            var series = [];
+
+            chartData.forEach(item => {
+                var index = categories.indexOf(item.month_year);
+                if (!series[item.warehouse]) {
+                    series[item.warehouse] = Array(categories.length).fill(0);
+                }
+                series[item.warehouse][index] = item.income;
+            });
+
             var options = {
                 chart: {
                     type: 'bar',
                     height: 350,
-                    stacked: false,
+                    stacked: true,
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '50%',
+                    },
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                series: Object.entries(series).map(([warehouse, data]) => ({
+                    name: warehouse,
+                    data: data,
+                })),
+                xaxis: {
+                    categories: categories,
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return "Rp" + val;
+                        },
+                    },
+                },
+            };
+
+            var chart = new ApexCharts(document.querySelector('#chart-warehouse-income'), options);
+            chart.render();
+
+
+            var incomeData = {!! json_encode($incomeByType) !!};
+
+            var chartData = [];
+            var categories = [];
+
+            incomeData.forEach(function(item) {
+                var monthYear = item.month_year;
+                var warehouseType = item.warehouseType;
+                var totalIncome = item.total_income;
+
+                if (!categories.includes(monthYear)) {
+                    categories.push(monthYear);
+                }
+
+                var seriesIndex = chartData.findIndex(function(series) {
+                    return series.name === warehouseType;
+                });
+
+                var dataIndex = categories.indexOf(monthYear);
+
+                if (seriesIndex === -1) {
+                    var series = {
+                        name: warehouseType,
+                        data: Array(categories.length).fill(0)
+                    };
+                    series.data[dataIndex] = totalIncome;
+                    chartData.push(series);
+                } else {
+                    chartData[seriesIndex].data[dataIndex] = totalIncome;
+                }
+            });
+
+            var options = {
+                chart: {
+                    type: 'bar',
+                    height: 350,
                 },
                 plotOptions: {
                     bar: {
@@ -361,16 +452,14 @@
                 dataLabels: {
                     enabled: false
                 },
-                series: [
-                    @foreach ($warehouseIncome_chartData as $data)
-                        {
-                            name: '{{ $data['name'] }}',
-                            data: [{{ implode(',', $data['data']) }}]
-                        },
-                    @endforeach
-                ],
+                series: chartData,
                 xaxis: {
-                    categories: {!! json_encode(array_keys($warehouseIncome_chartData[0]['data'])) !!}
+                    categories: categories,
+                },
+                yaxis: {
+                    title: {
+                        text: 'Total Income'
+                    }
                 },
                 legend: {
                     position: 'bottom',
@@ -384,40 +473,6 @@
                 }
             };
 
-            var chart = new ApexCharts(document.querySelector('#chart-warehouse-income'), options);
-            chart.render();
-
-
-            var warehouseData = @json($warehouseByType);
-
-            var months = Object.keys(warehouseData);
-            var categories = Object.keys(warehouseData[months[0]]);
-            var seriesData = [];
-
-            categories.forEach(function(category) {
-                var data = months.map(function(month) {
-                    return warehouseData[month][category] || 0;
-                });
-
-                seriesData.push({
-                    name: category,
-                    data: data,
-                });
-            });
-
-            var options = {
-                chart: {
-                    type: 'bar',
-                    height: 350,
-                },
-                series: seriesData,
-                xaxis: {
-                    categories: months,
-                },
-                dataLabels: {
-                    enabled: false,
-                },
-            };
 
             var chart = new ApexCharts(document.querySelector('#chart-type'), options);
             chart.render();
