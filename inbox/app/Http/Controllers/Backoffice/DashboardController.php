@@ -77,52 +77,46 @@ class DashboardController extends Controller
                 }
             }
 
-            $incomebyType = DB::table('transaction_details')
+            $incomeByType = DB::table('transaction_details')
                             ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
                             ->join('products', 'transaction_details.product_id', '=', 'products.id')
                             ->join('warehouses', 'products.warehouse_id', '=', 'warehouses.id')
                             ->join('types', 'warehouses.type_id', '=', 'types.id')
                             ->select(
-                                DB::raw('MONTH(transactions.created_at) AS month'),
+                                DB::raw('DATE_FORMAT(transaction_details.created_at, "%b %Y") as month_year'),
                                 'types.name AS warehouseType',
                                 DB::raw('SUM(transactions.grand_total) AS total_income')
                             )
                             ->where('transactions.payment_status', 'paid')
-                            ->groupBy('month', 'warehouseType')
+                            ->groupBy('month_year', 'warehouseType')
+                            ->orderByRaw('MIN(transaction_details.created_at)')
                             ->get();
 
             $warehouseIncome = DB::table('transaction_details')
                             ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
                             ->join('products', 'transaction_details.product_id', '=', 'products.id')
                             ->join('warehouses', 'products.warehouse_id', '=', 'warehouses.id')
-                            ->where('transactions.payment_status', 'paid')
                             ->select(
-                                DB::raw('MONTH(transactions.created_at) as month'),
-                                DB::raw('YEAR(transactions.created_at) as year'),
+                                DB::raw('DATE_FORMAT(transaction_details.created_at, "%b %Y") as month_year'),
                                 'warehouses.name as warehouse',
                                 DB::raw('SUM(transactions.grand_total) as income')
                             )
-                            ->groupBy('month', 'year', 'warehouse')
-                            ->orderBy('year', 'asc')
-                            ->orderBy('month', 'asc')
+                            ->where('transactions.payment_status', 'paid')
+                            ->groupBy('month_year', 'warehouse')
+                            ->orderByRaw('MIN(transaction_details.created_at)')
                             ->get();
 
-            // $allTimeIncome  = DB::table('transaction_details')
-            //                 ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
-            //                 ->select(
-            //                     DB::raw('DATE_FORMAT(transaction_details.created_at, "%b %Y") as month_year'),
-            //                     DB::raw('SUM(transactions.grand_total) as income')
-            //                 )
-            //                 ->where('transactions.payment_status', 'paid')
-            //                 ->groupBy('month_year')
-            //                 ->orderByRaw('MIN(transaction_details.created_at)')
-            //                 ->get();
+            $allTimeIncome  = DB::table('transaction_details')
+                            ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
+                            ->select(
+                                DB::raw('DATE_FORMAT(transaction_details.created_at, "%b %Y") as month_year'),
+                                DB::raw('SUM(transactions.grand_total) as income')
+                            )
+                            ->where('transactions.payment_status', 'paid')
+                            ->groupBy('month_year')
+                            ->orderByRaw('MIN(transaction_details.created_at)')
+                            ->get();
 
-            $allTimeIncome = Transaction::select(DB::raw('DATE_FORMAT(created_at, "%b %Y") as month_year'), DB::raw('SUM(grand_total) as income'))
-            ->where('payment_status', 'paid')
-            ->groupBy('month_year')
-            ->orderByRaw('MIN(created_at)')
-            ->get();
 
             $bestProduct = DB::table('transaction_details')
                             ->addSelect(DB::raw('products.name as name, sum(transaction_details.quantity) as total'))
@@ -138,7 +132,7 @@ class DashboardController extends Controller
                             ->orderBy('total', 'ASC')
                             ->limit(3)->get();
 
-            $warehouseIncome_warehouse = [];
+            $warehouseIncomeByWarehouse = [];
 
 
             $warehouseByType = [];
@@ -179,33 +173,32 @@ class DashboardController extends Controller
                 $allTimeIncome_incomeData[$data->month_year] = $data->income;
             }
 
+            // foreach ($warehouseIncome as $data) {
+            //         $month = $data->month;
+            //         $name = $data->warehouse;
+            //         $totalIncome = $data->income;
+            //     if (!isset($warehouseIncomeByWarehouse[$month])) {
+            //         $warehouseIncomeByWarehouse[$month] = [];
+            //     }
 
-            foreach ($warehouseIncome as $income) {
-                $warehouseIncome_warehouse[$income->warehouse][] = $income->income;
-            }
+            //     $warehouseIncomeByWarehouse[$month][$name] = $totalIncome;
 
-            $warehouseIncome_chartData = [];
+            // }
 
-            foreach ($warehouseIncome_warehouse as $warehouse => $income) {
-                $warehouseIncome_chartData[] = [
-                    'name' => $warehouse,
-                    'data' => $income,
-                ];
-            }
 
-            foreach ($incomebyType as $data) {
-                $month = $data->month;
-                $type_id = $data->warehouseType;
-                $totalIncome = $data->total_income;
+            // foreach ($incomebyType as $data) {
+            //     $month = $data->month;
+            //     $type_id = $data->warehouseType;
+            //     $totalIncome = $data->total_income;
 
-                if (!isset($warehouseByType[$month])) {
-                    $warehouseByType[$month] = [];
-                }
+            //     if (!isset($warehouseByType[$month])) {
+            //         $warehouseByType[$month] = [];
+            //     }
 
-                $warehouseByType[$month][$type_id] = $totalIncome;
-            }
+            //     $warehouseByType[$month][$type_id] = $totalIncome;
+            // }
 
-            return view('backoffice.dashboard', compact('categories', 'types', 'warehouses', 'products', 'users', 'transactions', 'transactionThisMonth', 'productsOutStock', 'orders', 'warehouseByType','warehouseIncome_chartData','allTimeIncome_incomeData', 'labelBest', 'totalBest', 'labelPoor', 'totalPoor', 'recommendationProducts', 'recommendationCreated' ));
+            return view('backoffice.dashboard', compact('categories', 'types', 'warehouses', 'products', 'users', 'transactions', 'transactionThisMonth', 'productsOutStock', 'orders', 'incomeByType','warehouseIncome','allTimeIncome_incomeData', 'labelBest', 'totalBest', 'labelPoor', 'totalPoor', 'recommendationProducts', 'recommendationCreated' ));
 
         } else {
 
