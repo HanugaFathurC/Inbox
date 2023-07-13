@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }}</title>
     <link rel="icon" href="{{ asset('resources/Image/Logo.png') }}" type="image/x-icon" />
+
+
     <link rel="shortcut icon" href="{{ asset('resources/Image/Logo.png') }}" type="image/x-icon" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -42,9 +44,14 @@
     <!-- Library JS -->
     <script src="{{ asset('dist/libs/jquery/dist/jquery.slim.min.js') }}"></script>
     <script src="{{ asset('dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://1cd5-36-68-67-93.ngrok-free.app/dist/libs/jquery/dist/jquery.slim.min.js"></script>
+    <script src="https://1cd5-36-68-67-93.ngrok-free.app/dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <script src="{{ asset('dist/libs/selectize/dist/js/standalone/selectize.min.js') }}"></script>
     <script src="{{ asset('dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
+
+    <script src="https://1cd5-36-68-67-93.ngrok-free.app/dist/libs/apexcharts/dist/apexcharts.min.js"></script>
     <!-- Tabler Core -->
     <script src="{{ asset('dist/js/tabler.min.js') }}"></script>
 

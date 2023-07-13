@@ -32,12 +32,12 @@ class ReportIncomeController extends Controller
         $reports = Transaction::with('details', 'user')
         ->whereDate('created_at', '>=', $fromDate)
         ->whereDate('created_at', '<=', $toDate)
+        ->where('transactions.payment_status', 'paid')
         ->get();
 
-        $grandTotal = TransactionDetail::with('products')
-        ->whereDate('created_at', '>=', $fromDate)
-        ->whereDate('created_at', '<=', $toDate)
-        ->sum('grand_price');
+        $grandTotal = $reports->flatMap(function ($report) {
+            return $report->details->pluck('grand_price');
+        })->sum();
 
 
         return view('backoffice.report-income.index', compact('fromDate', 'toDate', 'reports', 'grandTotal'));
@@ -46,14 +46,15 @@ class ReportIncomeController extends Controller
     public function pdf($fromDate, $toDate)
     {
         $reports = Transaction::with('details', 'user')
-            ->whereDate('created_at', '>=', $fromDate)
-            ->whereDate('created_at', '<=', $toDate)
-            ->get();
+        ->whereDate('created_at', '>=', $fromDate)
+        ->whereDate('created_at', '<=', $toDate)
+        ->where('transactions.payment_status', 'paid')
+        ->get();
 
-        $grandTotal = TransactionDetail::with('products')
-            ->whereDate('created_at', '>=', $fromDate)
-            ->whereDate('created_at', '<=', $toDate)
-            ->sum('grand_price');
+        $grandTotal = $reports->flatMap(function ($report) {
+            return $report->details->pluck('grand_price');
+        })->sum();
+
 
         $pdf = PDF::loadView('backoffice.report-income.reportIncome', compact('fromDate', 'toDate', 'reports', 'grandTotal'))->setPaper('a4', 'landscape');
 

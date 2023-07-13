@@ -53,13 +53,15 @@
                                     </td>
                                     <td class="text-right">
                                         @foreach ($report->details as $detail)
-                                            <p>{{ $detail->grand_price }}</p>
+                                            <p>Rp{{ number_format($detail->grand_price, 0, ',', '.') }},00</p>
                                         @endforeach
                                     </td>
                                 </tr>
                             @endforeach
                             <tr>
-                                <td class="col-4 ms-auto ">Total Pendapatan : {{ $grandTotal }}</td>
+                                <td colspan="3" class="text-right">
+                                    <b>Total Pendapatan : Rp{{ number_format($grandTotal, 0, ',', '.') }},00 </b>
+                                </td>
                             </tr>
                         </tbody>
 

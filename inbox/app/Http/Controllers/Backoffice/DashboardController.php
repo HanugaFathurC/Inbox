@@ -43,9 +43,23 @@ class DashboardController extends Controller
 
             $users = User::count();
 
-            $transactions = TransactionDetail::sum('quantity');
+            $reports = Transaction::with('details', 'user')
+            ->where('transactions.payment_status', 'paid')
+            ->get();
 
-            $transactionThisMonth = TransactionDetail::whereMonth('created_at', date('m'))->sum('quantity');
+            $transactions = $reports->flatMap(function ($report) {
+                return $report->details->pluck('quantity');
+            })->sum();
+
+
+            $reportsMonthly = Transaction::with('details', 'user')
+            ->where('transactions.payment_status', 'paid')
+            ->whereMonth('created_at', date('m'))
+            ->get();
+
+            $transactionThisMonth = $reportsMonthly->flatMap(function ($report) {
+                    return $report->details->pluck('quantity');
+            })->sum();
 
             $productsOutStock = Product::where('quantity', '<=', 10)->paginate(5);
 
@@ -173,30 +187,6 @@ class DashboardController extends Controller
                 $allTimeIncome_incomeData[$data->month_year] = $data->income;
             }
 
-            // foreach ($warehouseIncome as $data) {
-            //         $month = $data->month;
-            //         $name = $data->warehouse;
-            //         $totalIncome = $data->income;
-            //     if (!isset($warehouseIncomeByWarehouse[$month])) {
-            //         $warehouseIncomeByWarehouse[$month] = [];
-            //     }
-
-            //     $warehouseIncomeByWarehouse[$month][$name] = $totalIncome;
-
-            // }
-
-
-            // foreach ($incomebyType as $data) {
-            //     $month = $data->month;
-            //     $type_id = $data->warehouseType;
-            //     $totalIncome = $data->total_income;
-
-            //     if (!isset($warehouseByType[$month])) {
-            //         $warehouseByType[$month] = [];
-            //     }
-
-            //     $warehouseByType[$month][$type_id] = $totalIncome;
-            // }
 
             return view('backoffice.dashboard', compact('categories', 'types', 'warehouses', 'products', 'users', 'transactions', 'transactionThisMonth', 'productsOutStock', 'orders', 'incomeByType','warehouseIncome','allTimeIncome_incomeData', 'labelBest', 'totalBest', 'labelPoor', 'totalPoor', 'recommendationProducts', 'recommendationCreated' ));
 
