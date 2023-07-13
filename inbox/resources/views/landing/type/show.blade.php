@@ -8,7 +8,7 @@
             class="lg:p-4 flex flex-row gap-4 flex-cols-4 overflow-x-auto sm:grid sm:grid-cols-2 md:gap-2 lg:gap-3 lg:grid-cols-4">
             <a href="{{ route('product.index') }}"
                 class="min-w-full p-2 flex flex-row items-center gap-4 rounded-lg bg-white border border-l-4 border-l-sky-700 lg:hover:scale-105 duration-100 lg:transition-transform  hover:border-l-sky-400 transition-colors group shadow-md">
-                <img src="#" alt="all" class="object-cover w-10 rounded-lg">
+                <img src="{{ asset('resources/Image/Group 29.png') }}" alt="all" class="object-cover w-10 rounded-lg">
                 <div>
                     <h2 class="text-base text-gray-700 ">All</h2>
                 </div>

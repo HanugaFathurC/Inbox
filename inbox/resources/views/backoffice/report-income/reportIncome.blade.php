@@ -87,7 +87,7 @@
                     <td style="text-align: right">
                         @foreach ($report->details as $detail)
                             <ol style="padding: 0px;">
-                                {{ $detail->grand_price }} Rupiah
+                                Rp{{ number_format($detail->grand_price, 0, ',', '.') }},00
                             </ol>
                         @endforeach
                     </td>
@@ -97,7 +97,7 @@
                 <td style="color: rgb(17 24 39);">Total</td>
                 <td></td>
                 <td style="text-align: right; color: rgb(17 24 39);">
-                    {{ $grandTotal }} Rupiah
+                    Rp{{ number_format($grandTotal, 0, ',', '.') }},00
                 </td>
             </tr>
         </tbody>

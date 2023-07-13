@@ -53,12 +53,18 @@
                                     </td>
                                     <td class="text-right">
                                         @foreach ($report->details as $detail)
-                                            <p>{{ $detail->product->quantity }} Item</p>
+                                            <p>{{ $detail->quantity }} Item</p>
                                         @endforeach
                                     </td>
                                 </tr>
                             @endforeach
+                            <tr>
+                                <td colspan="3" class="text-right">
+                                    <b>Total Item : {{ $grandQuantity }}</b>
+                                </td>
+                            </tr>
                         </tbody>
+
                     </x-table>
                 </x-card>
             </div>

@@ -32,10 +32,16 @@ class ReportProductInController extends Controller
         $reports = Transaction::with('details', 'user')
         ->whereDate('created_at', '>=', $fromDate)
         ->whereDate('created_at', '<=', $toDate)
+        ->where('transactions.payment_status', 'paid')
         ->get();
 
+        $grandQuantity = $reports->flatMap(function ($report) {
+            return $report->details->pluck('quantity');
+        })->sum();
 
-        return view('backoffice.report-product-in.index', compact('fromDate', 'toDate', 'reports'));
+
+
+        return view('backoffice.report-product-in.index', compact('fromDate', 'toDate', 'reports', 'grandQuantity'));
     }
 
     public function pdf($fromDate, $toDate)
@@ -43,12 +49,12 @@ class ReportProductInController extends Controller
         $reports = Transaction::with('details', 'user')
             ->whereDate('created_at', '>=', $fromDate)
             ->whereDate('created_at', '<=', $toDate)
+            ->where('transactions.payment_status', 'paid')
             ->get();
 
-        $grandQuantity = TransactionDetail::with('products')
-            ->whereDate('created_at', '>=', $fromDate)
-            ->whereDate('created_at', '<=', $toDate)
-            ->sum('quantity');
+        $grandQuantity = $reports->flatMap(function ($report) {
+                return $report->details->pluck('quantity');
+            })->sum();
 
         $pdf = PDF::loadView('backoffice.report-product-in.report', compact('fromDate', 'toDate', 'reports', 'grandQuantity'))->setPaper('a4', 'landscape');
 
